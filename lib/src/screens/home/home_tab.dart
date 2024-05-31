@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/data/products.dart' as products_data;
+import 'package:greengrocer/src/data/items.dart' as items_data;
 import 'package:greengrocer/src/screens/home/components/category_tile.dart';
+import 'package:greengrocer/src/screens/home/components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -97,14 +98,14 @@ class _HomeTabState extends State<HomeTab> {
               itemBuilder: (context, index) => CategoryTile(
                 onTap: () {
                   setState(() {
-                    selectedCategory = products_data.categories[index];
+                    selectedCategory = items_data.categories[index];
                   });
                 },
-                category: products_data.categories[index],
-                isSelected: products_data.categories[index] == selectedCategory,
+                category: items_data.categories[index],
+                isSelected: items_data.categories[index] == selectedCategory,
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemCount: products_data.categories.length,
+              itemCount: items_data.categories.length,
             ),
           ),
           // # Grid View #
@@ -118,9 +119,9 @@ class _HomeTabState extends State<HomeTab> {
                 crossAxisSpacing: 10,
                 childAspectRatio: 9 / 11.5,
               ),
-              itemCount: products_data.items.length,
-              itemBuilder: (context, index) => Container(
-                color: Colors.red,
+              itemCount: items_data.items.length,
+              itemBuilder: (context, index) => ItemTile(
+                item: items_data.items[index],
               ),
             ),
           ),
