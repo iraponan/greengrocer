@@ -3,10 +3,9 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 
 mixin ThemeProject {
   static final theme = ThemeData(
-    scaffoldBackgroundColor: CustomColors.customSwathColor,
-    appBarTheme: AppBarTheme(
-      backgroundColor: CustomColors.customSwathColor.shade900,
-      foregroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white.withAlpha(190),
+    appBarTheme: const AppBarTheme(
+      color: Colors.transparent,
     ),
     iconTheme: const IconThemeData(
       color: Colors.white,

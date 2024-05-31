@@ -3,6 +3,7 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
+import 'package:greengrocer/src/screens/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -25,9 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Container(
-            color: Colors.red,
-          ),
+          const HomeTab(),
           Container(
             color: Colors.yellow,
           ),

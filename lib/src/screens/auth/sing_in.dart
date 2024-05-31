@@ -13,6 +13,7 @@ class SingInScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: CustomColors.customSwathColor.shade900,
       body: SingleChildScrollView(
         child: SizedBox(
           height: size.height,

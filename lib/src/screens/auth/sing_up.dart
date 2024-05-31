@@ -1,5 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/auth/components/custom_text_field.dart';
 
 class SingUpScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class SingUpScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: CustomColors.customSwathColor.shade900,
       body: SingleChildScrollView(
         child: SizedBox(
           width: size.width,
