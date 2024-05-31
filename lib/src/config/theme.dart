@@ -8,6 +8,9 @@ mixin ThemeProject {
       backgroundColor: CustomColors.customSwathColor.shade900,
       foregroundColor: Colors.white,
     ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: CustomColors.customSwathColor.shade900,

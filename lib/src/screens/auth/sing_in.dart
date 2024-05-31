@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/screens/auth/sing_up.dart';
+import 'package:greengrocer/src/screens/base/base_screen.dart';
 
 class SingInScreen extends StatelessWidget {
   const SingInScreen({super.key});
@@ -98,7 +99,11 @@ class SingInScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (c) => const BaseScreen(),
+                          ),
+                        ),
                         child: const Text(
                           'Entrar',
                           style: TextStyle(
