@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/auth/components/custom_text_field.dart';
+import 'package:greengrocer/src/screens/auth/sing_up.dart';
 
 class SingInScreen extends StatelessWidget {
   const SingInScreen({super.key});
@@ -146,7 +147,11 @@ class SingInScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (c) => const SingUpScreen(),
+                          ),
+                        ),
                         child: const Text(
                           'Criar Conta',
                           style: TextStyle(
