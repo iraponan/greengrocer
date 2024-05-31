@@ -92,6 +92,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/images/fruits/apple.png
+    - assets/images/fruits/grape.png
+    - assets/images/fruits/guava.png
+    - assets/images/fruits/kiwi.png
+    - assets/images/fruits/mango.png
+    - assets/images/fruits/papaya.png
+
 
 flutter_launcher_icons:
   android: "launcher_icon"
