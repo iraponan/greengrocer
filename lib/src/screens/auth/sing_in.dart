@@ -8,150 +8,159 @@ class SingInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    style: const TextStyle(
-                      fontSize: 40,
-                    ),
-                    children: [
-                      // # Nome do APP #
-                      const TextSpan(
-                        text: 'Green',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: size.height,
+          width: size.width,
+          child: Column(
+            children: [
+              // # Nome do APP #
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text.rich(
                       TextSpan(
-                        text: 'grocer',
-                        style: TextStyle(
-                          color: CustomColors.customContrastColor,
+                        style: const TextStyle(
+                          fontSize: 40,
+                        ),
+                        children: [
+                          const TextSpan(
+                            text: 'Green',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'grocer',
+                            style: TextStyle(
+                              color: CustomColors.customContrastColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // # Categoria #
+                    SizedBox(
+                      height: 30,
+                      child: DefaultTextStyle(
+                        style: const TextStyle(
+                          fontSize: 25,
+                        ),
+                        child: AnimatedTextKit(
+                          repeatForever: true,
+                          pause: Duration.zero,
+                          animatedTexts: [
+                            FadeAnimatedText('Frutas'),
+                            FadeAnimatedText('Verduras'),
+                            FadeAnimatedText('Legumes'),
+                            FadeAnimatedText('Carnes'),
+                            FadeAnimatedText('Cereais'),
+                            FadeAnimatedText('Laticínios'),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                // # Categoria #
-                SizedBox(
-                  height: 30,
-                  child: DefaultTextStyle(
-                    style: const TextStyle(
-                      fontSize: 25,
                     ),
-                    child: AnimatedTextKit(
-                      repeatForever: true,
-                      pause: Duration.zero,
-                      animatedTexts: [
-                        FadeAnimatedText('Frutas'),
-                        FadeAnimatedText('Verduras'),
-                        FadeAnimatedText('Legumes'),
-                        FadeAnimatedText('Carnes'),
-                        FadeAnimatedText('Cereais'),
-                        FadeAnimatedText('Laticínios'),
-                      ],
-                    ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          // # Formulario #
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(45),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // # E-mail #
-                const CustomTextField(
-                  labelText: 'E-mail',
-                  prefixIcon: Icons.email,
-                ),
-                // # Senha #
-                const CustomTextField(
-                  labelText: 'Senha',
-                  prefixIcon: Icons.lock,
-                  isSecret: true,
-                ),
-                // # Botão de Entrar #
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Entrar',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
+              // # Formulario #
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(45),
                   ),
                 ),
-                // # Esqueceu a Senha #
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Esqueceu a Senha?',
-                      style: TextStyle(
-                        color: CustomColors.customContrastColor,
-                      ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // # E-mail #
+                    const CustomTextField(
+                      labelText: 'E-mail',
+                      prefixIcon: Icons.email,
                     ),
-                  ),
-                ),
-                // Divisor
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey.withAlpha(90),
-                          thickness: 2,
+                    // # Senha #
+                    const CustomTextField(
+                      labelText: 'Senha',
+                      prefixIcon: Icons.lock,
+                      isSecret: true,
+                    ),
+                    // # Botão de Entrar #
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Entrar',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text('Ou'),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey.withAlpha(90),
-                          thickness: 2,
+                    ),
+                    // # Esqueceu a Senha #
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Esqueceu a Senha?',
+                          style: TextStyle(
+                            color: CustomColors.customContrastColor,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                // # Criar Conta #
-                SizedBox(
-                  height: 50,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Criar Conta',
-                      style: TextStyle(
-                        fontSize: 18,
+                    ),
+                    // Divisor
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey.withAlpha(90),
+                              thickness: 2,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text('Ou'),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey.withAlpha(90),
+                              thickness: 2,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                    // # Criar Conta #
+                    SizedBox(
+                      height: 50,
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Criar Conta',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
