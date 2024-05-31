@@ -33,13 +33,52 @@ class HomeTab extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.shopping_cart,
-              color: CustomColors.customSwathColor,
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: InkWell(
+              onTap: () {},
+              child: Badge(
+                backgroundColor: CustomColors.customContrastColor,
+                textColor: Colors.white,
+                label: const Text('2'),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: CustomColors.customSwathColor,
+                ),
+              ),
             ),
           ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // # Campo de Pesquisa #
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: TextFormField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                isDense: true,
+                hintText: 'Pesquise aqui...',
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade400,
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: CustomColors.customContrastColor,
+                  size: 21,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(60),
+                  borderSide: const BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
