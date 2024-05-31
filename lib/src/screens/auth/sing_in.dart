@@ -86,6 +86,7 @@ class SingInScreen extends StatelessWidget {
                     const CustomTextField(
                       labelText: 'E-mail',
                       prefixIcon: Icons.email,
+                      textInputType: TextInputType.emailAddress,
                     ),
                     // # Senha #
                     const CustomTextField(

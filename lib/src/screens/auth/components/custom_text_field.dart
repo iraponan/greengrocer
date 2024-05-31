@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -7,11 +7,17 @@ class CustomTextField extends StatefulWidget {
     required this.labelText,
     this.prefixIcon,
     this.isSecret = false,
+    this.textInputFormatter,
+    this.textInputType,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   final String labelText;
   final IconData? prefixIcon;
   final bool isSecret;
+  final TextInputFormatter? textInputFormatter;
+  final TextInputType? textInputType;
+  final TextCapitalization textCapitalization;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -46,9 +52,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 )
               : null,
           labelText: widget.labelText,
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: CustomColors.customSwathColor.shade900,
+            borderSide: const BorderSide(
+              color: Colors.grey,
               width: 2.0,
             ),
             borderRadius: BorderRadius.circular(18),
@@ -58,6 +67,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           isDense: true,
         ),
+        inputFormatters: widget.textInputFormatter == null
+            ? null
+            : [
+                FilteringTextInputFormatter.digitsOnly,
+                widget.textInputFormatter!,
+              ],
+        keyboardType: widget.textInputType,
+        textCapitalization: widget.textCapitalization,
       ),
     );
   }
