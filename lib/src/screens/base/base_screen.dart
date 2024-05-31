@@ -14,13 +14,30 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
+    final PageController pageController = PageController();
+
     int selectedPage = 0;
     Color colorSelected = Colors.white;
     Color colorUnselected = Colors.white.withAlpha(100);
 
     return Scaffold(
-      body: Container(
-        color: Colors.red,
+      body: PageView(
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.yellow,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.purple,
+          ),
+        ],
       ),
       bottomNavigationBar: BottomBarDoubleBullet(
         backgroundColor: CustomColors.customSwathColor.shade900,
@@ -66,7 +83,10 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
           ),
         ],
-        onSelect: (value) => selectedPage = value,
+        onSelect: (value) {
+          selectedPage = value;
+          pageController.jumpToPage(selectedPage);
+        },
       ),
     );
   }
