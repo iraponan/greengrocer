@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/data/products.dart' as products_data;
 import 'package:greengrocer/src/screens/home/components/category_tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -10,14 +11,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> categories = [
-    'Frutas',
-    'Verduras',
-    'Legumes',
-    'Carnes',
-    'Cereais',
-    'Laticínios',
-  ];
   String selectedCategory = 'Frutas';
 
   @override
@@ -104,14 +97,31 @@ class _HomeTabState extends State<HomeTab> {
               itemBuilder: (context, index) => CategoryTile(
                 onTap: () {
                   setState(() {
-                    selectedCategory = categories[index];
+                    selectedCategory = products_data.categories[index];
                   });
                 },
-                category: categories[index],
-                isSelected: categories[index] == selectedCategory,
+                category: products_data.categories[index],
+                isSelected: products_data.categories[index] == selectedCategory,
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemCount: categories.length,
+              itemCount: products_data.categories.length,
+            ),
+          ),
+          // # Grid View #
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 9 / 11.5,
+              ),
+              itemCount: products_data.items.length,
+              itemBuilder: (context, index) => Container(
+                color: Colors.red,
+              ),
             ),
           ),
         ],
