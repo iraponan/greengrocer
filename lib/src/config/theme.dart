@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 
 mixin ThemeProject {
   static final theme = ThemeData(
-    scaffoldBackgroundColor: Colors.green,
+    scaffoldBackgroundColor: CustomColors.customSwathColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+        backgroundColor: CustomColors.customSwathColor.shade900,
         foregroundColor: Colors.white,
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        side: const BorderSide(
+        side: BorderSide(
           width: 2,
-          color: Colors.green,
+          color: CustomColors.customSwathColor.shade900,
         ),
-        foregroundColor: Colors.green,
+        foregroundColor: CustomColors.customSwathColor.shade900,
       ),
     ),
   );

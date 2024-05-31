@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -46,8 +47,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               : null,
           labelText: widget.labelText,
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.green,
+            borderSide: BorderSide(
+              color: CustomColors.customSwathColor.shade900,
               width: 2.0,
             ),
             borderRadius: BorderRadius.circular(18),

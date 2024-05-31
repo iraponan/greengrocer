@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/auth/components/custom_text_field.dart';
 
 class SingInScreen extends StatelessWidget {
@@ -14,14 +15,14 @@ class SingInScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text.rich(
+                Text.rich(
                   TextSpan(
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 40,
                     ),
                     children: [
                       // # Nome do APP #
-                      TextSpan(
+                      const TextSpan(
                         text: 'Green',
                         style: TextStyle(
                           color: Colors.white,
@@ -31,7 +32,7 @@ class SingInScreen extends StatelessWidget {
                       TextSpan(
                         text: 'grocer',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: CustomColors.customContrastColor,
                         ),
                       ),
                     ],
@@ -102,10 +103,10 @@ class SingInScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Esqueceu a Senha?',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: CustomColors.customContrastColor,
                       ),
                     ),
                   ),

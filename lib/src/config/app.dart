@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greengrocer/config/theme.dart';
+import 'package:greengrocer/src/config/theme.dart';
 import 'package:greengrocer/src/screens/auth/sing_in.dart';
 
 class AppGreengrocer extends StatelessWidget {
