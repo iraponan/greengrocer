@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/config/theme.dart';
+import 'package:greengrocer/src/screens/auth/sing_in.dart';
 
 class AppGreengrocer extends StatelessWidget {
   const AppGreengrocer({super.key});
@@ -10,7 +11,7 @@ class AppGreengrocer extends StatelessWidget {
       title: 'Quitanda Inovare TI',
       debugShowCheckedModeBanner: false,
       theme: ThemeProject.theme,
-      home: Container(),
+      home: const SingInScreen(),
     );
   }
 }

@@ -1,0 +1,157 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
+import 'package:greengrocer/src/screens/auth/components/custom_text_field.dart';
+
+class SingInScreen extends StatelessWidget {
+  const SingInScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text.rich(
+                  TextSpan(
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                    children: [
+                      // # Nome do APP #
+                      TextSpan(
+                        text: 'Green',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'grocer',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // # Categoria #
+                SizedBox(
+                  height: 30,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 25,
+                    ),
+                    child: AnimatedTextKit(
+                      repeatForever: true,
+                      pause: Duration.zero,
+                      animatedTexts: [
+                        FadeAnimatedText('Frutas'),
+                        FadeAnimatedText('Verduras'),
+                        FadeAnimatedText('Legumes'),
+                        FadeAnimatedText('Carnes'),
+                        FadeAnimatedText('Cereais'),
+                        FadeAnimatedText('Laticínios'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // # Formulario #
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(45),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // # E-mail #
+                const CustomTextField(
+                  labelText: 'E-mail',
+                  prefixIcon: Icons.email,
+                ),
+                // # Senha #
+                const CustomTextField(
+                  labelText: 'Senha',
+                  prefixIcon: Icons.lock,
+                  isSecret: true,
+                ),
+                // # Botão de Entrar #
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Entrar',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                // # Esqueceu a Senha #
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Esqueceu a Senha?',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+                // Divisor
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey.withAlpha(90),
+                          thickness: 2,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Ou'),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey.withAlpha(90),
+                          thickness: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // # Criar Conta #
+                SizedBox(
+                  height: 50,
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Criar Conta',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
