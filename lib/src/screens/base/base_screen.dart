@@ -3,6 +3,7 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
+import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     final PageController pageController = PageController();
 
-    int selectedPage = 0;
+    int selectedPage = 1;
     Color colorSelected = Colors.white;
     Color colorUnselected = Colors.white.withAlpha(100);
 
@@ -27,9 +28,7 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           const HomeTab(),
-          Container(
-            color: Colors.yellow,
-          ),
+          const CartTab(),
           Container(
             color: Colors.blue,
           ),
@@ -39,7 +38,7 @@ class _BaseScreenState extends State<BaseScreen> {
         ],
       ),
       bottomNavigationBar: BottomBarDoubleBullet(
-        backgroundColor: CustomColors.customSwathColor.shade900,
+        backgroundColor: CustomColors.customSwathColor,
         circle1Color: Colors.red,
         circle2Color: Colors.blue,
         color: Colors.white,

@@ -16,51 +16,55 @@ class QuantityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Colors.white.withAlpha(230),
-        borderRadius: BorderRadius.circular(50),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            spreadRadius: 1,
-            blurRadius: 2,
-          )
-        ],
-      ),
-      child: Row(
-        children: [
-          QuantityButton(
-            iconData: Icons.remove,
-            color: Colors.grey,
-            onTap: () {
-              if (quantity == 1) {
-                return;
-              }
-              int resultCount = quantity - 1;
-              result(resultCount);
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: Text(
-              '$quantity $suffixText',
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+    return Material(
+      elevation: 8,
+      borderRadius: BorderRadius.circular(50),
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: Colors.white.withAlpha(230),
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              spreadRadius: 1,
+              blurRadius: 2,
+            )
+          ],
+        ),
+        child: Row(
+          children: [
+            QuantityButton(
+              iconData: Icons.remove,
+              color: Colors.grey,
+              onTap: () {
+                if (quantity == 1) {
+                  return;
+                }
+                int resultCount = quantity - 1;
+                result(resultCount);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: Text(
+                '$quantity $suffixText',
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          QuantityButton(
-            iconData: Icons.add,
-            color: CustomColors.customSwathColor,
-            onTap: () {
-              int resultCount = quantity + 1;
-              result(resultCount);
-            },
-          ),
-        ],
+            QuantityButton(
+              iconData: Icons.add,
+              color: CustomColors.customSwathColor,
+              onTap: () {
+                int resultCount = quantity + 1;
+                result(resultCount);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,6 +19,8 @@ class _HomeTabState extends State<HomeTab> {
     return Scaffold(
       // # App Bar #
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         title: Text.rich(
           TextSpan(
             style: const TextStyle(
