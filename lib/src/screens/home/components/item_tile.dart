@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/item.dart';
+import 'package:greengrocer/src/screens/product/product.dart';
 
 class ItemTile extends StatelessWidget {
   const ItemTile({super.key, required this.item});
@@ -12,53 +13,63 @@ class ItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          elevation: 3,
-          shadowColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+        InkWell(
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (c) => ProductScreen(item: item),
+            ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // # Imagem #
-                Expanded(
-                  child: Image.asset(item.imgUrl),
-                ),
-                // # Nome do produto #
-                Text(
-                  item.itemName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+          child: Card(
+            elevation: 3,
+            shadowColor: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // # Imagem #
+                  Expanded(
+                    child: Hero(
+                      tag: item.imgUrl,
+                      child: Image.asset(item.imgUrl),
+                    ),
                   ),
-                ),
-                // # Preço do Produto - Unidade #
-                Row(
-                  children: [
-                    Text(
-                      UtilBrasilFields.obterReal(
-                        item.price,
-                        moeda: true,
+                  // # Nome do produto #
+                  Text(
+                    item.itemName,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // # Preço do Produto - Unidade #
+                  Row(
+                    children: [
+                      Text(
+                        UtilBrasilFields.obterReal(
+                          item.price,
+                          moeda: true,
+                        ),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: CustomColors.customSwathColor),
                       ),
-                      style: TextStyle(
+                      Text(
+                        '/${item.unit}',
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: CustomColors.customSwathColor),
-                    ),
-                    Text(
-                      '/${item.unit}',
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
