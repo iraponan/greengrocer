@@ -25,10 +25,19 @@ class _CartTabState extends State<CartTab> {
           Expanded(
             child: ListView.builder(
               itemCount: items_data.cartItems.length,
-              itemBuilder: (context, index) => CartTile(
-                cartItem: items_data.cartItems[index],
-                remove: removeItemFromCart,
-              ),
+              itemBuilder: (context, index) {
+                final cartItem = items_data.cartItems[index];
+                return CartTile(
+                  cartItem: items_data.cartItems[index],
+                  updateQuantity: (qtd) {
+                    if (qtd == 0) {
+                      removeItemFromCart(items_data.cartItems[index]);
+                    } else {
+                      setState(() => cartItem.quantity = qtd);
+                    }
+                  },
+                );
+              },
             ),
           ),
           Container(
@@ -66,7 +75,10 @@ class _CartTabState extends State<CartTab> {
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      bool? result = await showOrderConfirmation();
+                      print(result);
+                    },
                     child: const Text(
                       'Concluir Pedido',
                       style: TextStyle(
@@ -96,4 +108,27 @@ class _CartTabState extends State<CartTab> {
     }
     return total;
   }
+
+  Future<bool?> showOrderConfirmation() => showDialog<bool>(
+        context: context,
+        builder: (c) => AlertDialog(
+          title: const Text('Confirmação'),
+          content: const Text('Deseja realmente concluir o pedido?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text(
+                'Não',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Sim'),
+            ),
+          ],
+        ),
+      );
 }
