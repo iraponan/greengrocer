@@ -4,20 +4,24 @@ import 'package:flutter/services.dart';
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
+    this.initialValue,
     required this.labelText,
-    this.prefixIcon,
+    required this.prefixIcon,
     this.isSecret = false,
+    this.isReadOnly = false,
     this.textInputFormatter,
     this.textInputType,
     this.textCapitalization = TextCapitalization.none,
   });
 
   final String labelText;
-  final IconData? prefixIcon;
+  final IconData prefixIcon;
   final bool isSecret;
+  final bool isReadOnly;
   final TextInputFormatter? textInputFormatter;
   final TextInputType? textInputType;
   final TextCapitalization textCapitalization;
+  final String? initialValue;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -37,6 +41,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
+        initialValue: widget.initialValue,
+        readOnly: widget.isReadOnly,
         obscureText: isObscure,
         decoration: InputDecoration(
           prefixIcon: Icon(widget.prefixIcon),

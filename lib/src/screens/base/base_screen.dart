@@ -5,6 +5,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
 import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';
+import 'package:greengrocer/src/screens/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -32,9 +33,7 @@ class _BaseScreenState extends State<BaseScreen> {
           Container(
             color: Colors.blue,
           ),
-          Container(
-            color: Colors.purple,
-          ),
+          const ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomBarDoubleBullet(
