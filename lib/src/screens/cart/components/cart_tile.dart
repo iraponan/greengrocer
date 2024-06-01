@@ -4,11 +4,21 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/cart_item.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
-class CartTile extends StatelessWidget {
-  const CartTile({super.key, required this.cartItem});
+class CartTile extends StatefulWidget {
+  const CartTile({
+    super.key,
+    required this.cartItem,
+    required this.remove,
+  });
 
   final CartItemModel cartItem;
+  final Function(CartItemModel) remove;
 
+  @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,13 +26,13 @@ class CartTile extends StatelessWidget {
       child: ListTile(
         // # Imagem #
         leading: Image.asset(
-          cartItem.item.imgUrl,
+          widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
         // # Título #
         title: Text(
-          cartItem.item.itemName,
+          widget.cartItem.item.itemName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -30,7 +40,7 @@ class CartTile extends StatelessWidget {
         // # Total #
         subtitle: Text(
           UtilBrasilFields.obterReal(
-            cartItem.totalPrice(),
+            widget.cartItem.totalPrice(),
             moeda: true,
           ),
           style: TextStyle(
@@ -40,9 +50,15 @@ class CartTile extends StatelessWidget {
         ),
         // # Quantidade #
         trailing: QuantityWidget(
-          quantity: cartItem.quantity,
-          suffixText: cartItem.item.unit,
-          result: (quantity) {},
+          quantity: widget.cartItem.quantity,
+          suffixText: widget.cartItem.item.unit,
+          isRemovable: true,
+          result: (quantity) => setState(() {
+            widget.cartItem.quantity = quantity;
+            if (quantity == 0) {
+              widget.remove(widget.cartItem);
+            }
+          }),
         ),
       ),
     );

@@ -2,11 +2,17 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
+import 'package:greengrocer/src/models/cart_item.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 
-class CartTab extends StatelessWidget {
+class CartTab extends StatefulWidget {
   const CartTab({super.key});
 
+  @override
+  State<CartTab> createState() => _CartTabState();
+}
+
+class _CartTabState extends State<CartTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +27,7 @@ class CartTab extends StatelessWidget {
               itemCount: items_data.cartItems.length,
               itemBuilder: (context, index) => CartTile(
                 cartItem: items_data.cartItems[index],
+                remove: removeItemFromCart,
               ),
             ),
           ),
@@ -49,7 +56,7 @@ class CartTab extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  UtilBrasilFields.obterReal(50.55, moeda: true),
+                  UtilBrasilFields.obterReal(cartTotalPrice(), moeda: true),
                   style: TextStyle(
                     fontSize: 23,
                     color: CustomColors.customSwathColor,
@@ -74,5 +81,19 @@ class CartTab extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void removeItemFromCart(CartItemModel cartItem) {
+    setState(() {
+      items_data.cartItems.remove(cartItem);
+    });
+  }
+
+  double cartTotalPrice() {
+    double total = 0;
+    for (var item in items_data.cartItems) {
+      total += item.totalPrice();
+    }
+    return total;
   }
 }

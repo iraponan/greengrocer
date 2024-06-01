@@ -18,7 +18,7 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     final PageController pageController = PageController();
 
-    int selectedPage = 1;
+    int selectedPage = 0;
     Color colorSelected = Colors.white;
     Color colorUnselected = Colors.white.withAlpha(100);
 
