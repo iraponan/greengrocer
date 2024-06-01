@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
+import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 
 class CartTab extends StatelessWidget {
   const CartTab({super.key});
@@ -18,8 +19,8 @@ class CartTab extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: items_data.cartItems.length,
-              itemBuilder: (context, index) => Text(
-                items_data.cartItems[index].item.itemName,
+              itemBuilder: (context, index) => CartTile(
+                cartItem: items_data.cartItems[index],
               ),
             ),
           ),

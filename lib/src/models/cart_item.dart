@@ -8,4 +8,6 @@ class CartItemModel {
 
   ItemModel item;
   int quantity;
+
+  double totalPrice() => item.price * quantity;
 }
