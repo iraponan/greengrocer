@@ -43,6 +43,30 @@ class _CartTabState extends State<CartTab> {
               },
             ),
           ),
+          items_data.cartItems.isNotEmpty
+              ? Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () => setState(() {
+                            Utils.cartQuantityItems = 0;
+                            Utils.globalKeyCartItems.currentState
+                                ?.runClearCartAnimation();
+                            items_data.cartItems.clear();
+                            Utils.selectedPage = 0;
+                            Utils.pageController.jumpToPage(Utils.selectedPage);
+                          }),
+                          icon: const Icon(Icons.cleaning_services_rounded),
+                          label: const Text('Limpar Carrinho'),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(

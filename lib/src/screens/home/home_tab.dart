@@ -50,24 +50,20 @@ class _HomeTabState extends State<HomeTab> {
         centerTitle: true,
         actions: [
           Padding(
-            padding: const EdgeInsets.only(top: 15, right: 15),
+            padding: const EdgeInsets.only(right: 8),
             child: GestureDetector(
               onTap: () {},
-              child: Badge(
-                backgroundColor: CustomColors.customContrastColor,
-                textColor: Colors.white,
-                label: const Text('2'),
-                child: AddToCartIcon(
+              child: AddToCartIcon(
                   key: Utils.globalKeyCartItems,
-                  badgeOptions: const BadgeOptions(
-                    active: false,
+                  badgeOptions: BadgeOptions(
+                    active: true,
+                    backgroundColor: CustomColors.customContrastColor,
+                    foregroundColor: Colors.white,
                   ),
                   icon: Icon(
                     Icons.shopping_cart,
                     color: CustomColors.customSwathColor,
-                  ),
-                ),
-              ),
+                  )),
             ),
           ),
         ],
@@ -159,7 +155,9 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  void itemSelectedCartAnimations(GlobalKey gkImage) {
-    runAddToCartAnimation(gkImage);
+  void itemSelectedCartAnimations(GlobalKey gkImage) async {
+    await runAddToCartAnimation(gkImage);
+    await Utils.globalKeyCartItems.currentState!
+        .runCartAnimation((++Utils.cartQuantityItems).toString());
   }
 }
