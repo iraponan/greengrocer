@@ -2,7 +2,7 @@ import 'package:bottom_bar_matu/bottom_bar_double_bullet/bottom_bar_double_bulle
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/helpers/utils.dart';
+import 'package:greengrocer/src/helpers/consts/utils.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
 import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';
@@ -24,7 +24,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
     return Scaffold(
       body: PageView(
-        controller: Utils.pageController,
+        controller: VariablesUtils.pageController,
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (page) => setState(() {}),
         children: const [
@@ -39,7 +39,7 @@ class _BaseScreenState extends State<BaseScreen> {
         circle1Color: Colors.red,
         circle2Color: Colors.blue,
         color: Colors.white,
-        selectedIndex: Utils.selectedPage,
+        selectedIndex: VariablesUtils.selectedPage,
         items: [
           BottomBarItem(
             iconBuilder: (color) => CustomBottomBarItem(
@@ -47,7 +47,7 @@ class _BaseScreenState extends State<BaseScreen> {
               colorUnselected: colorUnselected,
               iconData: Icons.home_outlined,
               label: 'Home',
-              isSelected: Utils.selectedPage == 0,
+              isSelected: VariablesUtils.selectedPage == 0,
             ),
           ),
           BottomBarItem(
@@ -56,7 +56,7 @@ class _BaseScreenState extends State<BaseScreen> {
               colorUnselected: colorUnselected,
               iconData: Icons.shopping_cart_outlined,
               label: 'Carrinho',
-              isSelected: Utils.selectedPage == 1,
+              isSelected: VariablesUtils.selectedPage == 1,
             ),
           ),
           BottomBarItem(
@@ -65,7 +65,7 @@ class _BaseScreenState extends State<BaseScreen> {
               colorUnselected: colorUnselected,
               iconData: Icons.list_outlined,
               label: 'Pedidos',
-              isSelected: Utils.selectedPage == 2,
+              isSelected: VariablesUtils.selectedPage == 2,
             ),
           ),
           BottomBarItem(
@@ -74,13 +74,13 @@ class _BaseScreenState extends State<BaseScreen> {
               colorUnselected: colorUnselected,
               iconData: Icons.person_outline,
               label: 'Perfil',
-              isSelected: Utils.selectedPage == 3,
+              isSelected: VariablesUtils.selectedPage == 3,
             ),
           ),
         ],
         onSelect: (value) {
-          Utils.selectedPage = value;
-          Utils.pageController.jumpToPage(Utils.selectedPage);
+          VariablesUtils.selectedPage = value;
+          VariablesUtils.pageController.jumpToPage(VariablesUtils.selectedPage);
         },
       ),
     );

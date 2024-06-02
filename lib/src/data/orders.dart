@@ -1,4 +1,5 @@
 import 'package:greengrocer/src/data/items.dart';
+import 'package:greengrocer/src/helpers/enums/payment_status.dart';
 import 'package:greengrocer/src/models/cart_item.dart';
 import 'package:greengrocer/src/models/order.dart';
 
@@ -17,7 +18,7 @@ List<OrderModel> orders = [
         quantity: 3,
       ),
     ],
-    status: 'pending_payment',
+    status: PaymentStatus.pendingPayment,
     copyAndPast: 'q1w2e3r4t5y6u7i8o9p0',
     total: 18.5,
   ),
@@ -31,7 +32,7 @@ List<OrderModel> orders = [
         quantity: 1,
       ),
     ],
-    status: 'delivered',
+    status: PaymentStatus.delivered,
     copyAndPast: 'p0o9i8u7y6t5r4e3w2q1',
     total: 11.5,
   ),

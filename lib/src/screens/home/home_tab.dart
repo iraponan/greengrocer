@@ -2,7 +2,7 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
-import 'package:greengrocer/src/helpers/utils.dart';
+import 'package:greengrocer/src/helpers/consts/utils.dart';
 import 'package:greengrocer/src/screens/home/components/category_tile.dart';
 import 'package:greengrocer/src/screens/home/components/item_tile.dart';
 
@@ -54,7 +54,7 @@ class _HomeTabState extends State<HomeTab> {
             child: GestureDetector(
               onTap: () {},
               child: AddToCartIcon(
-                  key: Utils.globalKeyCartItems,
+                  key: VariablesUtils.globalKeyCartItems,
                   badgeOptions: BadgeOptions(
                     active: true,
                     backgroundColor: CustomColors.customContrastColor,
@@ -69,7 +69,7 @@ class _HomeTabState extends State<HomeTab> {
         ],
       ),
       body: AddToCartAnimation(
-        cartKey: Utils.globalKeyCartItems,
+        cartKey: VariablesUtils.globalKeyCartItems,
         jumpAnimation: const JumpAnimationOptions(
           duration: Duration(milliseconds: 500),
           curve: Curves.ease,
@@ -157,7 +157,7 @@ class _HomeTabState extends State<HomeTab> {
 
   void itemSelectedCartAnimations(GlobalKey gkImage) async {
     await runAddToCartAnimation(gkImage);
-    await Utils.globalKeyCartItems.currentState!
-        .runCartAnimation((++Utils.cartQuantityItems).toString());
+    await VariablesUtils.globalKeyCartItems.currentState!
+        .runCartAnimation((++VariablesUtils.cartQuantityItems).toString());
   }
 }

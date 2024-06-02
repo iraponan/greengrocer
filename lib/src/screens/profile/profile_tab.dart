@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/data/user.dart' as user_data;
-import 'package:greengrocer/src/helpers/utils.dart';
+import 'package:greengrocer/src/helpers/consts/utils.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -64,7 +64,7 @@ class _ProfileTabState extends State<ProfileTab> {
             textInputFormatter: CpfInputFormatter(),
           ),
           SizedBox(
-            height: Utils.heightButton,
+            height: VariablesUtils.heightButton,
             child: OutlinedButton(
               onPressed: () => updatePassword(),
               child: const Text('Atualizar Senha'),
@@ -113,7 +113,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       isSecret: true,
                     ),
                     SizedBox(
-                      height: Utils.heightButton,
+                      height: VariablesUtils.heightButton,
                       child: ElevatedButton(
                         onPressed: () {},
                         child: const Text('Atualizar'),

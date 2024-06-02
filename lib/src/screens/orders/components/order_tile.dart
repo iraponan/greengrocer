@@ -1,6 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:greengrocer/src/helpers/utils.dart';
+import 'package:greengrocer/src/helpers/enums/payment_status.dart';
 import 'package:greengrocer/src/models/order.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/screens/orders/components/order_item.dart';
@@ -17,7 +17,8 @@ class OrderTile extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          initiallyExpanded: Utils.allStatus[order.status] == 0,
+          initiallyExpanded: PaymentStatus.values[1] ==
+              order.status, //Utils.allStatus[order.status] == 0,
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +85,7 @@ class OrderTile extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: Utils.allStatus[order.status] == 0,
+              visible: order.status == PaymentStatus.pendingPayment,
               child: ElevatedButton.icon(
                 onPressed: () => showDialog(
                   context: context,
