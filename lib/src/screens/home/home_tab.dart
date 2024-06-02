@@ -2,7 +2,8 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
-import 'package:greengrocer/src/helpers/consts/utils.dart';
+import 'package:greengrocer/src/helpers/utils/methods.dart';
+import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/home/components/category_tile.dart';
 import 'package:greengrocer/src/screens/home/components/item_tile.dart';
 
@@ -25,26 +26,30 @@ class _HomeTabState extends State<HomeTab> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        title: Text.rich(
-          TextSpan(
-            style: const TextStyle(
-              fontSize: 30,
+        title: GestureDetector(
+          onTap: () => MethodsUtils.showToast(
+              message: 'Esse é um App para um Mercardinho.'),
+          child: Text.rich(
+            TextSpan(
+              style: const TextStyle(
+                fontSize: 30,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Green',
+                  style: TextStyle(
+                    color: CustomColors.customSwathColor.shade900,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: 'grocer',
+                  style: TextStyle(
+                    color: CustomColors.customContrastColor,
+                  ),
+                ),
+              ],
             ),
-            children: [
-              TextSpan(
-                text: 'Green',
-                style: TextStyle(
-                  color: CustomColors.customSwathColor.shade900,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: 'grocer',
-                style: TextStyle(
-                  color: CustomColors.customContrastColor,
-                ),
-              ),
-            ],
           ),
         ),
         centerTitle: true,

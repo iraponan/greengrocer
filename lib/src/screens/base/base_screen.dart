@@ -2,7 +2,7 @@ import 'package:bottom_bar_matu/bottom_bar_double_bullet/bottom_bar_double_bulle
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/helpers/consts/utils.dart';
+import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
 import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';

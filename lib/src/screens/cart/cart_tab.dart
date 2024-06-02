@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
 import 'package:greengrocer/src/data/orders.dart' as orders_data;
-import 'package:greengrocer/src/helpers/consts/utils.dart';
+import 'package:greengrocer/src/helpers/utils/methods.dart';
+import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/cart_item.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
@@ -24,33 +25,33 @@ class _CartTabState extends State<CartTab> {
         centerTitle: true,
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: items_data.cartItems.length,
-              itemBuilder: (context, index) {
-                final cartItem = items_data.cartItems[index];
-                return CartTile(
-                  cartItem: items_data.cartItems[index],
-                  updateQuantity: (qtd) {
-                    if (qtd == 0) {
-                      removeItemFromCart(items_data.cartItems[index]);
-                    } else {
-                      setState(() => cartItem.quantity = qtd);
-                    }
+            child: ListView(
+              children: [
+                ListView.builder(
+                  itemCount: items_data.cartItems.length,
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final cartItem = items_data.cartItems[index];
+                    return CartTile(
+                      cartItem: items_data.cartItems[index],
+                      updateQuantity: (qtd) {
+                        if (qtd == 0) {
+                          removeItemFromCart(items_data.cartItems[index]);
+                        } else {
+                          setState(() => cartItem.quantity = qtd);
+                        }
+                      },
+                    );
                   },
-                );
-              },
-            ),
-          ),
-          items_data.cartItems.isNotEmpty
-              ? Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton.icon(
+                ),
+                items_data.cartItems.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ElevatedButton.icon(
                           onPressed: () => setState(() {
                             VariablesUtils.cartQuantityItems = 0;
                             VariablesUtils.globalKeyCartItems.currentState
@@ -63,11 +64,11 @@ class _CartTabState extends State<CartTab> {
                           icon: const Icon(Icons.cleaning_services_rounded),
                           label: const Text('Limpar Carrinho'),
                         ),
-                      ],
-                    ),
-                  ),
-                )
-              : Container(),
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -112,6 +113,11 @@ class _CartTabState extends State<CartTab> {
                             order: orders_data.orders.first,
                           ),
                         );
+                      } else {
+                        MethodsUtils.showToast(
+                          message: 'Pedido Não Confirmado',
+                          isError: true,
+                        );
                       }
                     },
                     child: const Text(
@@ -133,6 +139,9 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       items_data.cartItems.remove(cartItem);
+      MethodsUtils.showToast(
+          message:
+              'Produto: ${cartItem.item.itemName} removido(a) do carrinho.');
     });
   }
 
