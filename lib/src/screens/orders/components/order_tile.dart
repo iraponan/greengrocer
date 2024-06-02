@@ -32,6 +32,7 @@ class OrderTile extends StatelessWidget {
               ),
             ],
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           children: [
             IntrinsicHeight(
@@ -62,7 +63,34 @@ class OrderTile extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+                children: [
+                  const TextSpan(
+                    text: 'Total ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                      text:
+                          UtilBrasilFields.obterReal(order.total, moeda: true)),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: Consts.allStatus[order.status] == 0,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(),
+                icon: const Icon(Icons.pix),
+                label: const Text('Ver QR Code PIX'),
+              ),
+            ),
           ],
         ),
       ),
