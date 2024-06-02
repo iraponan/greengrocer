@@ -29,6 +29,7 @@ class _CartTabState extends State<CartTab> {
         children: [
           Expanded(
             child: ListView(
+              physics: const BouncingScrollPhysics(),
               children: [
                 ListView.builder(
                   itemCount: items_data.cartItems.length,
@@ -58,8 +59,11 @@ class _CartTabState extends State<CartTab> {
                                 ?.runClearCartAnimation();
                             items_data.cartItems.clear();
                             VariablesUtils.selectedPage = 0;
-                            VariablesUtils.pageController
-                                .jumpToPage(VariablesUtils.selectedPage);
+                            VariablesUtils.pageController.animateToPage(
+                              VariablesUtils.selectedPage,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.ease,
+                            );
                           }),
                           icon: const Icon(Icons.cleaning_services_rounded),
                           label: const Text('Limpar Carrinho'),
