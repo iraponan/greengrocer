@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/helpers/consts.dart';
 import 'package:greengrocer/src/models/order.dart';
+import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/screens/orders/components/order_item.dart';
 import 'package:greengrocer/src/screens/orders/components/order_status.dart';
 
@@ -85,7 +86,12 @@ class OrderTile extends StatelessWidget {
             Visibility(
               visible: Consts.allStatus[order.status] == 0,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (c) => PaymentDialog(
+                    order: order,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(),
                 icon: const Icon(Icons.pix),
                 label: const Text('Ver QR Code PIX'),
