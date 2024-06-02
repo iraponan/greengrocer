@@ -5,12 +5,19 @@ import 'package:greengrocer/src/models/item.dart';
 import 'package:greengrocer/src/screens/product/product.dart';
 
 class ItemTile extends StatelessWidget {
-  const ItemTile({super.key, required this.item});
+  const ItemTile({
+    super.key,
+    required this.item,
+    required this.cartAnimationMethod,
+  });
 
   final ItemModel item;
+  final void Function(GlobalKey) cartAnimationMethod;
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey imageGk = GlobalKey();
+
     return Stack(
       children: [
         InkWell(
@@ -33,7 +40,12 @@ class ItemTile extends StatelessWidget {
                   Expanded(
                     child: Hero(
                       tag: item.imgUrl,
-                      child: Image.asset(item.imgUrl),
+                      child: Container(
+                        key: imageGk,
+                        child: Image.asset(
+                          item.imgUrl,
+                        ),
+                      ),
                     ),
                   ),
                   // # Nome do produto #
@@ -76,7 +88,7 @@ class ItemTile extends StatelessWidget {
           top: 4,
           right: 4,
           child: InkWell(
-            onTap: () {},
+            onTap: () => cartAnimationMethod(imageGk),
             child: Container(
               height: 40,
               width: 35,

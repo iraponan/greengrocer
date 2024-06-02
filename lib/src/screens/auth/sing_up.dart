@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/helpers/consts.dart';
+import 'package:greengrocer/src/helpers/utils.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 
 class SingUpScreen extends StatelessWidget {
@@ -73,7 +73,7 @@ class SingUpScreen extends StatelessWidget {
                           textInputType: TextInputType.number,
                         ),
                         SizedBox(
-                          height: Consts.heightButton,
+                          height: Utils.heightButton,
                           child: ElevatedButton(
                             onPressed: () {},
                             child: const Text(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greengrocer/src/helpers/consts.dart';
+import 'package:greengrocer/src/helpers/utils.dart';
 import 'package:greengrocer/src/screens/orders/components/custom_divider.dart';
 import 'package:greengrocer/src/screens/orders/components/status_dot.dart';
 
@@ -13,7 +13,7 @@ class OrderStatus extends StatelessWidget {
   final String status;
   final bool isOverdue;
 
-  int get currentStatus => Consts.allStatus[status]!;
+  int get currentStatus => Utils.allStatus[status]!;
 
   @override
   Widget build(BuildContext context) {

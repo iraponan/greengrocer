@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
 import 'package:greengrocer/src/data/orders.dart' as orders_data;
-import 'package:greengrocer/src/helpers/consts.dart';
+import 'package:greengrocer/src/helpers/utils.dart';
 import 'package:greengrocer/src/models/cart_item.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
@@ -76,7 +76,7 @@ class _CartTabState extends State<CartTab> {
                   ),
                 ),
                 SizedBox(
-                  height: Consts.heightButton,
+                  height: Utils.heightButton,
                   child: ElevatedButton(
                     onPressed: () async {
                       bool? result = await showOrderConfirmation();
