@@ -5,12 +5,16 @@ import 'package:greengrocer/src/models/order.dart';
 List<OrderModel> orders = [
   OrderModel(
     id: 'q1w2e3r4t5y6u7i8o9p0',
-    createdDateTime: DateTime.parse('2024-06-01 10:00:10:458'),
-    overdueDateTime: DateTime.parse('2024-06-02 10:00:10:458'),
+    createdDateTime: DateTime(2024, 6, 1, 10, 15, 10, 458),
+    overdueDateTime: DateTime(2024, 6, 1, 11, 15, 10, 458),
     items: [
       CartItemModel(
         item: apple,
         quantity: 2,
+      ),
+      CartItemModel(
+        item: mango,
+        quantity: 3,
       ),
     ],
     status: 'pending_payment',

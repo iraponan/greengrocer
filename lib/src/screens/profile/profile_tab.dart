@@ -129,7 +129,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   onPressed: () => Navigator.of(c).pop(),
                   icon: const Icon(
                     Icons.close,
-                    color: Colors.black,
+                    color: Colors.red,
                   ),
                 ),
               ),

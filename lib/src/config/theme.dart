@@ -12,6 +12,9 @@ mixin ThemeProject {
     iconTheme: const IconThemeData(
       color: Colors.white,
     ),
+    cardTheme: const CardTheme(
+      elevation: 3,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: CustomColors.customSwathColor,
