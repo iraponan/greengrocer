@@ -82,7 +82,7 @@ class _BaseScreenState extends State<BaseScreen> {
           VariablesUtils.selectedPage = value;
           VariablesUtils.pageController.animateToPage(
             VariablesUtils.selectedPage,
-            duration: const Duration(seconds: 1),
+            duration: VariablesUtils.pageAnimationDuration,
             curve: Curves.ease,
           );
         },

@@ -61,7 +61,7 @@ class _CartTabState extends State<CartTab> {
                             VariablesUtils.selectedPage = 0;
                             VariablesUtils.pageController.animateToPage(
                               VariablesUtils.selectedPage,
-                              duration: const Duration(seconds: 1),
+                              duration: VariablesUtils.pageAnimationDuration,
                               curve: Curves.ease,
                             );
                           }),

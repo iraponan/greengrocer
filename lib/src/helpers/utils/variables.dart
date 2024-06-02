@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 mixin VariablesUtils {
   static final PageController pageController = PageController();
+  static const Duration pageAnimationDuration = Duration(seconds: 1);
   static final GlobalKey<CartIconKey> globalKeyCartItems =
       GlobalKey<CartIconKey>();
   static int selectedPage = 0;
