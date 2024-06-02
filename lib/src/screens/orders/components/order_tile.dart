@@ -1,7 +1,9 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/helpers/consts.dart';
 import 'package:greengrocer/src/models/order.dart';
 import 'package:greengrocer/src/screens/orders/components/order_item.dart';
+import 'package:greengrocer/src/screens/orders/components/order_status.dart';
 
 class OrderTile extends StatelessWidget {
   const OrderTile({super.key, required this.order});
@@ -14,6 +16,7 @@ class OrderTile extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          initiallyExpanded: Consts.allStatus[order.status] == 0,
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,22 +34,30 @@ class OrderTile extends StatelessWidget {
           ),
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           children: [
-            SizedBox(
-              height: 150,
+            IntrinsicHeight(
               child: Row(
                 children: [
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                        children: order.items
-                            .map((orderItem) =>
-                                OrderItemWidget(orderItem: orderItem))
-                            .toList()),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView(
+                          children: order.items
+                              .map((orderItem) =>
+                                  OrderItem(orderItem: orderItem))
+                              .toList()),
+                    ),
+                  ),
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
                   ),
                   Expanded(
                     flex: 2,
-                    child: Container(
-                      color: Colors.blue,
+                    child: OrderStatus(
+                      status: order.status,
+                      isOverdue: order.overdueDateTime.isBefore(DateTime.now()),
                     ),
                   ),
                 ],

@@ -2,8 +2,8 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/models/cart_item.dart';
 
-class OrderItemWidget extends StatelessWidget {
-  const OrderItemWidget({super.key, required this.orderItem});
+class OrderItem extends StatelessWidget {
+  const OrderItem({super.key, required this.orderItem});
 
   final CartItemModel orderItem;
 

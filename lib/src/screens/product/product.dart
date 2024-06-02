@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/config/helpers.dart';
+import 'package:greengrocer/src/helpers/consts.dart';
 import 'package:greengrocer/src/models/item.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
@@ -107,7 +107,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                       // # Botão #
                       SizedBox(
-                        height: Helpers.heightButton,
+                        height: Consts.heightButton,
                         child: ElevatedButton.icon(
                           onPressed: () {},
                           icon: const Icon(
