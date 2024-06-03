@@ -4,6 +4,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/auth/sing_up.dart';
 import 'package:greengrocer/src/screens/base/base_screen.dart';
+import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 
 class SingInScreen extends StatelessWidget {
@@ -26,27 +27,9 @@ class SingInScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text.rich(
-                      TextSpan(
-                        style: const TextStyle(
-                          fontSize: 40,
-                        ),
-                        children: [
-                          const TextSpan(
-                            text: 'Green',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'grocer',
-                            style: TextStyle(
-                              color: CustomColors.customContrastColor,
-                            ),
-                          ),
-                        ],
-                      ),
+                    const AppName(
+                      greenTitleColor: Colors.white,
+                      textSize: 40,
                     ),
                     // # Categoria #
                     SizedBox(

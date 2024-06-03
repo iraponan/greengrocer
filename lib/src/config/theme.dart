@@ -30,5 +30,9 @@ mixin ThemeProject {
         foregroundColor: CustomColors.customSwathColor,
       ),
     ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.white,
+      circularTrackColor: CustomColors.customSwathColor,
+    ),
   );
 }

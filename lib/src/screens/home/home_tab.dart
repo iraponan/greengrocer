@@ -4,6 +4,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/data/items.dart' as items_data;
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 import 'package:greengrocer/src/screens/home/components/category_tile.dart';
 import 'package:greengrocer/src/screens/home/components/item_tile.dart';
 
@@ -29,28 +30,7 @@ class _HomeTabState extends State<HomeTab> {
         title: GestureDetector(
           onTap: () => MethodsUtils.showToast(
               message: 'Esse é um App para um Mercadinho.'),
-          child: Text.rich(
-            TextSpan(
-              style: const TextStyle(
-                fontSize: 30,
-              ),
-              children: [
-                TextSpan(
-                  text: 'Green',
-                  style: TextStyle(
-                    color: CustomColors.customSwathColor.shade900,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextSpan(
-                  text: 'grocer',
-                  style: TextStyle(
-                    color: CustomColors.customContrastColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          child: const AppName(),
         ),
         centerTitle: true,
         actions: [
