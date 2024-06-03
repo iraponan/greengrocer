@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/screens/common_widgets/components/quantity_button.dart';
 
-class QuantityWidget extends StatelessWidget {
+class QuantityWidget extends StatefulWidget {
   const QuantityWidget({
     super.key,
     required this.quantity,
@@ -16,6 +16,11 @@ class QuantityWidget extends StatelessWidget {
   final Function(int quantity) result;
   final bool isRemovable;
 
+  @override
+  State<QuantityWidget> createState() => _QuantityWidgetState();
+}
+
+class _QuantityWidgetState extends State<QuantityWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -38,22 +43,24 @@ class QuantityWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             QuantityButton(
-              iconData: !isRemovable || quantity > 1
+              iconData: !widget.isRemovable || widget.quantity > 1
                   ? Icons.remove
                   : Icons.delete_forever,
-              color: !isRemovable || quantity > 1 ? Colors.grey : Colors.red,
+              color: !widget.isRemovable || widget.quantity > 1
+                  ? Colors.grey
+                  : Colors.red,
               onTap: () {
-                if (quantity == 1 && !isRemovable) {
+                if (widget.quantity == 1 && !widget.isRemovable) {
                   return;
                 }
-                int resultCount = quantity - 1;
-                result(resultCount);
+                int resultCount = widget.quantity - 1;
+                widget.result(resultCount);
               },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6),
               child: Text(
-                '$quantity $suffixText',
+                '${widget.quantity} ${widget.suffixText}',
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -64,8 +71,8 @@ class QuantityWidget extends StatelessWidget {
               iconData: Icons.add,
               color: CustomColors.customSwathColor,
               onTap: () {
-                int resultCount = quantity + 1;
-                result(resultCount);
+                int resultCount = widget.quantity + 1;
+                widget.result(resultCount);
               },
             ),
           ],

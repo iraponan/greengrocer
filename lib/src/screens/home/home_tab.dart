@@ -28,7 +28,7 @@ class _HomeTabState extends State<HomeTab> {
         surfaceTintColor: Colors.transparent,
         title: GestureDetector(
           onTap: () => MethodsUtils.showToast(
-              message: 'Esse é um App para um Mercardinho.'),
+              message: 'Esse é um App para um Mercadinho.'),
           child: Text.rich(
             TextSpan(
               style: const TextStyle(
