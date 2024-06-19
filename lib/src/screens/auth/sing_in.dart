@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
@@ -114,23 +115,34 @@ class _SingInScreenState extends State<SingInScreen> {
                       // # Botão de Entrar #
                       SizedBox(
                         height: VariablesUtils.heightButton,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              String email = emailController.text;
-                              String password = passwordController.text;
-                              print('E-mail: $email - Senha: $password');
-                            } else {
-                              print('Campos não válidos.');
-                            }
-                            //Get.offNamed(PageRoutes.baseRoute);
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
+                                      if (formKey.currentState!.validate()) {
+                                        String email = emailController.text;
+                                        String password =
+                                            passwordController.text;
+                                        authController.signIn(
+                                            email: email, password: password);
+                                      } else {
+                                        print('Campos não válidos.');
+                                      }
+                                      //Get.offNamed(PageRoutes.baseRoute);
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                            );
                           },
-                          child: const Text(
-                            'Entrar',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
                         ),
                       ),
                       // # Esqueceu a Senha #
