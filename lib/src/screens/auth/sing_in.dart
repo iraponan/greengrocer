@@ -16,6 +16,8 @@ class SingInScreen extends StatefulWidget {
 
 class _SingInScreenState extends State<SingInScreen> {
   final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class _SingInScreenState extends State<SingInScreen> {
                     children: [
                       // # E-mail #
                       CustomTextField(
+                        controller: emailController,
                         labelText: 'E-mail',
                         prefixIcon: Icons.email,
                         textInputType: TextInputType.emailAddress,
@@ -95,6 +98,7 @@ class _SingInScreenState extends State<SingInScreen> {
                       ),
                       // # Senha #
                       CustomTextField(
+                        controller: passwordController,
                         labelText: 'Senha',
                         prefixIcon: Icons.lock,
                         isSecret: true,
@@ -113,7 +117,9 @@ class _SingInScreenState extends State<SingInScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              print('Todos os campos estão válidos!');
+                              String email = emailController.text;
+                              String password = passwordController.text;
+                              print('E-mail: $email - Senha: $password');
                             } else {
                               print('Campos não válidos.');
                             }

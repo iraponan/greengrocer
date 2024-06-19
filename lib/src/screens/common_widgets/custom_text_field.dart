@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
+    this.controller,
     this.initialValue,
     required this.labelText,
     required this.prefixIcon,
@@ -15,6 +16,7 @@ class CustomTextField extends StatefulWidget {
     this.validator,
   });
 
+  final TextEditingController? controller;
   final String labelText;
   final IconData prefixIcon;
   final bool isSecret;
@@ -43,6 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
+        controller: widget.controller,
         initialValue: widget.initialValue,
         readOnly: widget.isReadOnly,
         obscureText: isObscure,
