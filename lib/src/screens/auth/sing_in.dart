@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
-import 'package:greengrocer/src/screens/auth/sing_up.dart';
-import 'package:greengrocer/src/screens/base/base_screen.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 
@@ -84,11 +84,7 @@ class SingInScreen extends StatelessWidget {
                     SizedBox(
                       height: VariablesUtils.heightButton,
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (c) => const BaseScreen(),
-                          ),
-                        ),
+                        onPressed: () => Get.toNamed(PageRoutes.baseRoute),
                         child: const Text(
                           'Entrar',
                           style: TextStyle(
@@ -138,11 +134,7 @@ class SingInScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (c) => const SingUpScreen(),
-                          ),
-                        ),
+                        onPressed: () => Get.toNamed(PageRoutes.signUpRoute),
                         child: const Text(
                           'Criar Conta',
                           style: TextStyle(
