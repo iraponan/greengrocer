@@ -1,11 +1,11 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:greengrocer/src/models/cart_item.dart';
+import 'package:greengrocer/src/models/cart_product.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({super.key, required this.orderItem});
 
-  final CartItemModel orderItem;
+  final CartProduct orderItem;
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,12 @@ class OrderItem extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            '${orderItem.quantity} ${orderItem.item.unit} ',
+            '${orderItem.quantity} ${orderItem.product.unit} ',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          Expanded(child: Text(orderItem.item.itemName)),
+          Expanded(child: Text(orderItem.product.productName)),
           Text(UtilBrasilFields.obterReal(orderItem.totalPrice(), moeda: true)),
         ],
       ),

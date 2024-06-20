@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/app.dart';
+import 'package:greengrocer/src/config/initialize.dart';
 import 'package:greengrocer/src/config/setup.dart';
 
-void main() {
+Future<void> main() async {
+  await AppInitialize.initializeEnv();
+  await AppInitialize.initializeParseServer();
+
   AppSetup.setupControllers();
+
   runApp(const AppGreengrocer());
 }

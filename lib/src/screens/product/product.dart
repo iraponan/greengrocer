@@ -2,13 +2,13 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
-import 'package:greengrocer/src/models/item.dart';
+import 'package:greengrocer/src/models/product.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.item});
 
-  final ItemModel item;
+  final Product item;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -58,7 +58,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              widget.item.itemName,
+                              widget.item.productName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

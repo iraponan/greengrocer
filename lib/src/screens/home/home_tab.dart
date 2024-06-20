@@ -1,7 +1,7 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/data/items.dart' as items_data;
+import 'package:greengrocer/src/data/products.dart' as items_data;
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';

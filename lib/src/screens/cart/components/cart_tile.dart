@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/models/cart_item.dart';
+import 'package:greengrocer/src/models/cart_product.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
 class CartTile extends StatefulWidget {
@@ -11,7 +11,7 @@ class CartTile extends StatefulWidget {
     required this.updateQuantity,
   });
 
-  final CartItemModel cartItem;
+  final CartProduct cartItem;
   final Function(int) updateQuantity;
 
   @override
@@ -26,13 +26,13 @@ class _CartTileState extends State<CartTile> {
       child: ListTile(
         // # Imagem #
         leading: Image.asset(
-          widget.cartItem.item.imgUrl,
+          widget.cartItem.product.imgUrl,
           height: 60,
           width: 60,
         ),
         // # Título #
         title: Text(
-          widget.cartItem.item.itemName,
+          widget.cartItem.product.productName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -51,7 +51,7 @@ class _CartTileState extends State<CartTile> {
         // # Quantidade #
         trailing: QuantityWidget(
           quantity: widget.cartItem.quantity,
-          suffixText: widget.cartItem.item.unit,
+          suffixText: widget.cartItem.product.unit,
           isRemovable: true,
           result: widget.updateQuantity,
         ),

@@ -43,6 +43,8 @@ dependencies:
   fluttertoast: ^8.2.5
   shimmer: ^3.0.0
   get: ^4.6.6
+  parse_server_sdk_flutter: ^8.0.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -104,6 +106,7 @@ flutter:
     - assets/images/fruits/kiwi.png
     - assets/images/fruits/mango.png
     - assets/images/fruits/papaya.png
+    - lib/src/config/.env
 
 
 flutter_launcher_icons:

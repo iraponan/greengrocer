@@ -2,7 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
-import 'package:greengrocer/src/models/item.dart';
+import 'package:greengrocer/src/models/product.dart';
 import 'package:greengrocer/src/screens/product/product.dart';
 
 class ItemTile extends StatefulWidget {
@@ -12,7 +12,7 @@ class ItemTile extends StatefulWidget {
     required this.cartAnimationMethod,
   });
 
-  final ItemModel item;
+  final Product item;
   final void Function(GlobalKey) cartAnimationMethod;
 
   @override
@@ -57,7 +57,7 @@ class _ItemTileState extends State<ItemTile> {
                   ),
                   // # Nome do produto #
                   Text(
-                    widget.item.itemName,
+                    widget.item.productName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

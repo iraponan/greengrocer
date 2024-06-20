@@ -9,7 +9,7 @@ import 'package:greengrocer/src/screens/orders/components/order_status.dart';
 class OrderTile extends StatelessWidget {
   const OrderTile({super.key, required this.order});
 
-  final OrderModel order;
+  final Order order;
 
   @override
   Widget build(BuildContext context) {

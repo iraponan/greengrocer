@@ -1,8 +1,8 @@
 import 'package:greengrocer/src/helpers/enums/payment_status.dart';
-import 'package:greengrocer/src/models/cart_item.dart';
+import 'package:greengrocer/src/models/cart_product.dart';
 
-class OrderModel {
-  OrderModel({
+class Order {
+  Order({
     required this.id,
     required this.createdDateTime,
     required this.overdueDateTime,
@@ -15,8 +15,13 @@ class OrderModel {
   String id;
   DateTime createdDateTime;
   DateTime overdueDateTime;
-  List<CartItemModel> items;
+  List<CartProduct> items;
   PaymentStatus status;
   String copyAndPast;
   double total;
+
+  @override
+  String toString() {
+    return 'OrderModel{id: $id, createdDateTime: $createdDateTime, overdueDateTime: $overdueDateTime, items: $items, status: $status, copyAndPast: $copyAndPast, total: $total}';
+  }
 }

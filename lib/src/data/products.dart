@@ -1,54 +1,54 @@
-import 'package:greengrocer/src/models/cart_item.dart';
-import 'package:greengrocer/src/models/item.dart';
+import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/product.dart';
 
-ItemModel apple = ItemModel(
+Product apple = Product(
   description:
       'A melhor maçã da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
   imgUrl: 'assets/images/fruits/apple.png',
-  itemName: 'Maçã',
+  productName: 'Maçã',
   price: 5.5,
   unit: 'KG',
 );
 
-ItemModel grape = ItemModel(
+Product grape = Product(
   imgUrl: 'assets/images/fruits/grape.png',
-  itemName: 'Uva',
+  productName: 'Uva',
   price: 7.4,
   unit: 'KG',
   description:
       'A melhor uva da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
 );
 
-ItemModel guava = ItemModel(
+Product guava = Product(
   imgUrl: 'assets/images/fruits/guava.png',
-  itemName: 'Goiaba',
+  productName: 'Goiaba',
   price: 11.5,
   unit: 'KG',
   description:
       'A melhor goiaba da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
 );
 
-ItemModel kiwi = ItemModel(
+Product kiwi = Product(
   imgUrl: 'assets/images/fruits/kiwi.png',
-  itemName: 'Kiwi',
+  productName: 'Kiwi',
   price: 2.5,
   unit: 'UN',
   description:
       'O melhor kiwi da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
 );
 
-ItemModel mango = ItemModel(
+Product mango = Product(
   imgUrl: 'assets/images/fruits/mango.png',
-  itemName: 'Manga',
+  productName: 'Manga',
   price: 2.5,
   unit: 'UN',
   description:
       'A melhor manga da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
 );
 
-ItemModel papaya = ItemModel(
+Product papaya = Product(
   imgUrl: 'assets/images/fruits/papaya.png',
-  itemName: 'Mamão papaya',
+  productName: 'Mamão papaya',
   price: 8,
   unit: 'KG',
   description:
@@ -56,7 +56,7 @@ ItemModel papaya = ItemModel(
 );
 
 // Lista de produtos
-List<ItemModel> items = [
+List<Product> items = [
   apple,
   grape,
   guava,
@@ -76,8 +76,8 @@ List<String> categories = [
 ];
 
 // Lista do Carrinho
-List<CartItemModel> cartItems = [
-  CartItemModel(item: apple, quantity: 2),
-  CartItemModel(item: mango, quantity: 1),
-  CartItemModel(item: guava, quantity: 3),
+List<CartProduct> cartItems = [
+  CartProduct(product: apple, quantity: 2),
+  CartProduct(product: mango, quantity: 1),
+  CartProduct(product: guava, quantity: 3),
 ];
