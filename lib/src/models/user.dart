@@ -33,6 +33,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{id: $id, token: $token, name: $name, email: $email, phone: $phone, cpf: $cpfCnpj, password: $password}';
+    return 'User{id: $id, token: $token, name: $name, email: $email, phone: $phone, cpfCnpj: $cpfCnpj, password: $password}';
   }
 }

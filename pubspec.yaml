@@ -45,6 +45,8 @@ dependencies:
   get: ^4.6.6
   parse_server_sdk_flutter: ^8.0.0
   flutter_dotenv: ^5.1.0
+  freezed: ^2.5.7
+  freezed_annotation: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +59,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.13.1
+  build_runner: ^2.4.12
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
