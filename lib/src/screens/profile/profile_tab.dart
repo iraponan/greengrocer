@@ -55,7 +55,7 @@ class _ProfileTabState extends State<ProfileTab> {
             textInputFormatter: TelefoneInputFormatter(),
           ),
           CustomTextField(
-            initialValue: user_data.user.cpf,
+            initialValue: user_data.user.cpfCnpj,
             isSecret: true,
             isReadOnly: true,
             prefixIcon: Icons.person_pin,

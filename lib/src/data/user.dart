@@ -3,9 +3,10 @@ import 'package:greengrocer/src/models/user.dart';
 
 User user = User(
   id: 'qwert',
+  token: '123456',
   name: 'Iraponan Marinho',
   email: 'contato@inovareti.eti.br',
   phone: '(84) 9 9617-1209',
-  cpf: UtilBrasilFields.gerarCPF(useFormat: true),
+  cpfCnpj: UtilBrasilFields.gerarCPF(useFormat: true),
   password: '',
 );
