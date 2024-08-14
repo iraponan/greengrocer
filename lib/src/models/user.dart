@@ -3,22 +3,22 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class User {
   User({
-    required this.id,
-    required this.token,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.cpfCnpj,
-    this.password = '********',
+    this.id,
+    this.token,
+    this.name,
+    this.email,
+    this.phone,
+    this.cpfCnpj,
+    this.password,
   });
 
-  String id;
-  String token;
-  String name;
-  String email;
-  String phone;
-  String cpfCnpj;
-  String password;
+  String? id;
+  String? token;
+  String? name;
+  String? email;
+  String? phone;
+  String? cpfCnpj;
+  String? password;
 
   factory User.fromMap(ParseUser parseUser) {
     return User(

@@ -7,9 +7,21 @@ import 'package:greengrocer/src/screens/splash/splash.dart';
 
 mixin AppPages {
   static final pages = <GetPage>[
-    GetPage(name: PageRoutes.splashRoute, page: () => const SplashScreen()),
-    GetPage(name: PageRoutes.signInRoute, page: () => const SingInScreen()),
-    GetPage(name: PageRoutes.signUpRoute, page: () => const SingUpScreen()),
-    GetPage(name: PageRoutes.baseRoute, page: () => const BaseScreen()),
+    GetPage(
+      name: PageRoutes.splashRoute,
+      page: () => const SplashScreen(),
+    ),
+    GetPage(
+      name: PageRoutes.signInRoute,
+      page: () => const SingInScreen(),
+    ),
+    GetPage(
+      name: PageRoutes.signUpRoute,
+      page: () => const SingUpScreen(),
+    ),
+    GetPage(
+      name: PageRoutes.baseRoute,
+      page: () => const BaseScreen(),
+    ),
   ];
 }
