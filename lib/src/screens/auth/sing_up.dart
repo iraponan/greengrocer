@@ -1,6 +1,8 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/services/validators.dart';
@@ -14,6 +16,7 @@ class SingUpScreen extends StatefulWidget {
 
 class _SingUpScreenState extends State<SingUpScreen> {
   final formKey = GlobalKey<FormState>();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,23 +58,32 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const CustomTextField(
+                          CustomTextField(
                             labelText: 'E-mail',
                             prefixIcon: Icons.email,
                             textInputType: TextInputType.emailAddress,
                             validator: Validators.emailValidator,
+                            onSaved: (value) {
+                              authController.user.email = value;
+                            },
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             labelText: 'Senha',
                             prefixIcon: Icons.lock,
                             isSecret: true,
                             validator: Validators.passwordValidator,
+                            onSaved: (value) {
+                              authController.user.password = value;
+                            },
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             labelText: 'Nome Completo',
                             prefixIcon: Icons.person,
                             textCapitalization: TextCapitalization.words,
                             validator: Validators.nameValidator,
+                            onSaved: (value) {
+                              authController.user.name = value;
+                            },
                           ),
                           CustomTextField(
                             labelText: 'Celular',
@@ -79,6 +91,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             textInputFormatter: TelefoneInputFormatter(),
                             textInputType: TextInputType.number,
                             validator: Validators.phoneValidator,
+                            onSaved: (value) {
+                              authController.user.phone = value;
+                            },
                           ),
                           CustomTextField(
                             labelText: 'CPF',
@@ -86,20 +101,33 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             textInputFormatter: CpfInputFormatter(),
                             textInputType: TextInputType.number,
                             validator: Validators.cpfCnpjValidator,
+                            onSaved: (value) {
+                              authController.user.cpfCnpj = value;
+                            },
                           ),
                           SizedBox(
                             height: VariablesUtils.heightButton,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                formKey.currentState!.validate();
-                              },
-                              child: const Text(
-                                'Cadastrar o Usuário',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
+                            child: Obx(() {
+                              return ElevatedButton(
+                                onPressed: authController.isLoading.value
+                                    ? null
+                                    : () {
+                                        if (formKey.currentState!.validate()) {
+                                          FocusScope.of(context).unfocus();
+                                          formKey.currentState!.save();
+                                          authController.signUp();
+                                        }
+                                      },
+                                child: authController.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        'Cadastrar Usuário',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                              );
+                            }),
                           ),
                         ],
                       ),

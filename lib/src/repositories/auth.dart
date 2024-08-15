@@ -1,3 +1,4 @@
+import 'package:greengrocer/src/helpers/data_table_keys/user.dart';
 import 'package:greengrocer/src/helpers/utils/parse_errors.dart';
 import 'package:greengrocer/src/models/user.dart';
 import 'package:greengrocer/src/results/auth.dart';
@@ -8,24 +9,34 @@ class AuthRepository {
       {required String email, required String password}) async {
     final parseUser = ParseUser(email, password, email);
     final response = await parseUser.login();
-
-    if (response.success) {
-      return AuthResult.success(User.fromMap(response.result));
-    } else {
-      return AuthResult.error(
-        ParseErrors.getDescription(response.error?.code ?? -1),
-      );
-    }
+    return handleUserOrError(response);
   }
 
   Future<AuthResult> currentUser({String? token}) async {
     final response = await ParseUser.getCurrentUserFromServer(token ?? '');
+    return handleUserOrError(response);
+  }
 
+  Future<AuthResult> signUp({required User user}) async {
+    final ParseUser parseUser =
+        ParseUser(user.email, user.password, user.email);
+
+    parseUser.set<String>(UserTable.name, user.name ?? '');
+    parseUser.set<String>(UserTable.phone, user.phone ?? '');
+    parseUser.set<String>(UserTable.cpfCnpj, user.cpfCnpj ?? '');
+
+    final response = await parseUser.save();
+
+    return handleUserOrError(response);
+  }
+
+  AuthResult handleUserOrError(ParseResponse? response) {
     if (response != null && response.success) {
       return AuthResult.success(User.fromMap(response.result));
     } else {
-      return AuthResult.error('Não foi possível pegar o usuário atual.\n'
-          'Por favor faça novo login.');
+      return AuthResult.error(
+        ParseErrors.getDescription(response?.error?.code ?? -1),
+      );
     }
   }
 }

@@ -115,10 +115,7 @@ class _SingInScreenState extends State<SingInScreen> {
                                             passwordController.text;
                                         authController.signIn(
                                             email: email, password: password);
-                                      } else {
-                                        print('Campos não válidos.');
                                       }
-                                      //Get.offNamed(PageRoutes.baseRoute);
                                     },
                               child: authController.isLoading.value
                                   ? const CircularProgressIndicator()

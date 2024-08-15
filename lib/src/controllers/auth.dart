@@ -57,6 +57,22 @@ class AuthController extends GetxController {
     Get.offAllNamed(PageRoutes.signInRoute);
   }
 
+  Future<void> signUp() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    isLoading.value = true;
+    AuthResult result = await authRepository.signUp(user: user);
+    isLoading.value = false;
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        MethodsUtils.showToast(message: message, isError: true);
+      },
+    );
+  }
+
   void saveTokenAndProceedToBase() {
     StorageFiles.saveLocalData(key: StorageKeys.token, data: user.token!);
     Get.offAllNamed(PageRoutes.baseRoute);
