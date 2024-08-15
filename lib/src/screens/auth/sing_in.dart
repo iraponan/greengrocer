@@ -7,6 +7,7 @@ import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
+import 'package:greengrocer/src/services/validators.dart';
 
 class SingInScreen extends StatefulWidget {
   const SingInScreen({super.key});
@@ -88,14 +89,7 @@ class _SingInScreenState extends State<SingInScreen> {
                         labelText: 'E-mail',
                         prefixIcon: Icons.email,
                         textInputType: TextInputType.emailAddress,
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu e-mail!';
-                          } else if (!email.isEmail) {
-                            return 'Digite um e-mail valido!';
-                          }
-                          return null;
-                        },
+                        validator: Validators.emailValidator,
                       ),
                       // # Senha #
                       CustomTextField(
@@ -103,14 +97,7 @@ class _SingInScreenState extends State<SingInScreen> {
                         labelText: 'Senha',
                         prefixIcon: Icons.lock,
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite sua senha!';
-                          } else if (password.length < 7) {
-                            return 'Digite uma senha com pelo menos 7 caracteres!';
-                          }
-                          return null;
-                        },
+                        validator: Validators.passwordValidator,
                       ),
                       // # Botão de Entrar #
                       SizedBox(

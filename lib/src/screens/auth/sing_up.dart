@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
+import 'package:greengrocer/src/services/validators.dart';
 
-class SingUpScreen extends StatelessWidget {
+class SingUpScreen extends StatefulWidget {
   const SingUpScreen({super.key});
+
+  @override
+  State<SingUpScreen> createState() => _SingUpScreenState();
+}
+
+class _SingUpScreenState extends State<SingUpScreen> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,49 +50,59 @@ class SingUpScreen extends StatelessWidget {
                         top: Radius.circular(45),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const CustomTextField(
-                          labelText: 'E-mail',
-                          prefixIcon: Icons.email,
-                          textInputType: TextInputType.emailAddress,
-                        ),
-                        const CustomTextField(
-                          labelText: 'Senha',
-                          prefixIcon: Icons.lock,
-                          isSecret: true,
-                        ),
-                        const CustomTextField(
-                          labelText: 'Nome Completo',
-                          prefixIcon: Icons.person,
-                          textCapitalization: TextCapitalization.words,
-                        ),
-                        CustomTextField(
-                          labelText: 'Celular',
-                          prefixIcon: Icons.phone,
-                          textInputFormatter: TelefoneInputFormatter(),
-                          textInputType: TextInputType.number,
-                        ),
-                        CustomTextField(
-                          labelText: 'CPF',
-                          prefixIcon: Icons.person_pin,
-                          textInputFormatter: CpfInputFormatter(),
-                          textInputType: TextInputType.number,
-                        ),
-                        SizedBox(
-                          height: VariablesUtils.heightButton,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Cadastrar o Usuário',
-                              style: TextStyle(
-                                fontSize: 18,
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const CustomTextField(
+                            labelText: 'E-mail',
+                            prefixIcon: Icons.email,
+                            textInputType: TextInputType.emailAddress,
+                            validator: Validators.emailValidator,
+                          ),
+                          const CustomTextField(
+                            labelText: 'Senha',
+                            prefixIcon: Icons.lock,
+                            isSecret: true,
+                            validator: Validators.passwordValidator,
+                          ),
+                          const CustomTextField(
+                            labelText: 'Nome Completo',
+                            prefixIcon: Icons.person,
+                            textCapitalization: TextCapitalization.words,
+                            validator: Validators.nameValidator,
+                          ),
+                          CustomTextField(
+                            labelText: 'Celular',
+                            prefixIcon: Icons.phone,
+                            textInputFormatter: TelefoneInputFormatter(),
+                            textInputType: TextInputType.number,
+                            validator: Validators.phoneValidator,
+                          ),
+                          CustomTextField(
+                            labelText: 'CPF',
+                            prefixIcon: Icons.person_pin,
+                            textInputFormatter: CpfInputFormatter(),
+                            textInputType: TextInputType.number,
+                            validator: Validators.cpfCnpjValidator,
+                          ),
+                          SizedBox(
+                            height: VariablesUtils.heightButton,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                formKey.currentState!.validate();
+                              },
+                              child: const Text(
+                                'Cadastrar o Usuário',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],

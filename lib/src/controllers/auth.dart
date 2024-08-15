@@ -5,6 +5,7 @@ import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/models/user.dart';
 import 'package:greengrocer/src/repositories/auth.dart';
 import 'package:greengrocer/src/results/auth.dart';
+import 'package:greengrocer/src/services/storage_files.dart';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
@@ -14,7 +15,7 @@ class AuthController extends GetxController {
   User user = User();
 
   Future<void> getCurrentUser() async {
-    String? token = await MethodsUtils.getLocalData(key: StorageKeys.token);
+    String? token = await StorageFiles.getLocalData(key: StorageKeys.token);
     if (token == null || token.isEmpty) {
       Get.offAllNamed(PageRoutes.signInRoute);
       return;
@@ -52,12 +53,12 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     user = User();
-    MethodsUtils.removeLocalData(key: StorageKeys.token);
+    StorageFiles.removeLocalData(key: StorageKeys.token);
     Get.offAllNamed(PageRoutes.signInRoute);
   }
 
   void saveTokenAndProceedToBase() {
-    MethodsUtils.saveLocalData(key: StorageKeys.token, data: user.token!);
+    StorageFiles.saveLocalData(key: StorageKeys.token, data: user.token!);
     Get.offAllNamed(PageRoutes.baseRoute);
   }
 }
