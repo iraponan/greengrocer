@@ -4,3 +4,7 @@ mixin PageRoutes {
   static const String splashRoute = '/splash';
   static const String baseRoute = '/';
 }
+
+mixin StorageKeys {
+  static const String token = 'token';
+}

@@ -10,8 +10,7 @@ class AuthRepository {
     final response = await parseUser.login();
 
     if (response.success) {
-      User user = User.fromMap(response.result);
-      return AuthResult.success(user);
+      return AuthResult.success(User.fromMap(response.result));
     } else {
       return AuthResult.error(
         ParseErrors.getDescription(response.error?.code ?? -1),
@@ -19,19 +18,14 @@ class AuthRepository {
     }
   }
 
-  Future<User?> currentUser() async {
-    final parseUser = await ParseUser.currentUser();
+  Future<AuthResult> currentUser({String? token}) async {
+    final response = await ParseUser.getCurrentUserFromServer(token ?? '');
 
-    if (parseUser != null) {
-      final response =
-          await ParseUser.getCurrentUserFromServer(parseUser.sessionToken);
-
-      if (response != null && response.success) {
-        return User.fromMap(response.result);
-      } else {
-        await parseUser.logout();
-      }
+    if (response != null && response.success) {
+      return AuthResult.success(User.fromMap(response.result));
+    } else {
+      return AuthResult.error('Não foi possível pegar o usuário atual.\n'
+          'Por favor faça novo login.');
     }
-    return null;
   }
 }

@@ -1,7 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 mixin AppInitialize {
+  static Future<void> initializeApp() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  }
+
   static Future<void> initializeEnv() async {
     await dotenv.load(fileName: 'lib/src/config/.env');
   }

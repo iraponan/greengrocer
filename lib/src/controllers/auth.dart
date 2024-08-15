@@ -13,6 +13,25 @@ class AuthController extends GetxController {
 
   User user = User();
 
+  Future<void> getCurrentUser() async {
+    String? token = await MethodsUtils.getLocalData(key: StorageKeys.token);
+    if (token == null || token.isEmpty) {
+      Get.offAllNamed(PageRoutes.signInRoute);
+      return;
+    } else {
+      AuthResult result = await authRepository.currentUser(token: token);
+      result.when(
+        success: (user) {
+          this.user = user;
+          saveTokenAndProceedToBase();
+        },
+        error: (message) {
+          signOut();
+        },
+      );
+    }
+  }
+
   Future<void> signIn({required String email, required String password}) async {
     FocusManager.instance.primaryFocus?.unfocus();
     isLoading.value = true;
@@ -23,11 +42,22 @@ class AuthController extends GetxController {
     result.when(
       success: (user) {
         this.user = user;
-        Get.offAllNamed(PageRoutes.baseRoute);
+        saveTokenAndProceedToBase();
       },
       error: (message) {
         MethodsUtils.showToast(message: message, isError: true);
       },
     );
+  }
+
+  Future<void> signOut() async {
+    user = User();
+    MethodsUtils.removeLocalData(key: StorageKeys.token);
+    Get.offAllNamed(PageRoutes.signInRoute);
+  }
+
+  void saveTokenAndProceedToBase() {
+    MethodsUtils.saveLocalData(key: StorageKeys.token, data: user.token!);
+    Get.offAllNamed(PageRoutes.baseRoute);
   }
 }

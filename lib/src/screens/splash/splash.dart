@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/helpers/utils/consts.dart';
+import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,10 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Get.offNamed(PageRoutes.signInRoute),
-    );
+    Get.find<AuthController>().getCurrentUser();
   }
 
   @override
