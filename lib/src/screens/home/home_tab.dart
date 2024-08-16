@@ -1,6 +1,8 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/home.dart';
 import 'package:greengrocer/src/data/products.dart' as items_data;
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
@@ -25,6 +27,7 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
+    Get.find<HomeController>().printExample();
     Future.delayed(
       const Duration(seconds: 3),
       () => setState(() {
