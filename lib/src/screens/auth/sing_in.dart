@@ -5,6 +5,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/screens/auth/components/forgot_password_dialog.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/services/validators.dart';
@@ -133,7 +134,14 @@ class _SingInScreenState extends State<SingInScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final bool? result = await showDialog(
+                              context: context,
+                              builder: (context) => ForgotPasswordDialog(
+                                email: emailController.text,
+                              ),
+                            );
+                          },
                           child: Text(
                             'Esqueceu a Senha?',
                             style: TextStyle(

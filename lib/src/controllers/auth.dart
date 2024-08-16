@@ -5,6 +5,7 @@ import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/models/user.dart';
 import 'package:greengrocer/src/repositories/auth.dart';
 import 'package:greengrocer/src/results/auth.dart';
+import 'package:greengrocer/src/results/reset_password.dart';
 import 'package:greengrocer/src/services/storage_files.dart';
 
 class AuthController extends GetxController {
@@ -66,6 +67,19 @@ class AuthController extends GetxController {
       success: (user) {
         this.user = user;
         saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        MethodsUtils.showToast(message: message, isError: true);
+      },
+    );
+  }
+
+  Future<void> resetPassword(String email) async {
+    ResetPasswordResult result = await authRepository.resetPassword(email);
+    FocusManager.instance.primaryFocus?.unfocus();
+    result.when(
+      success: (message) {
+        MethodsUtils.showToast(message: message);
       },
       error: (message) {
         MethodsUtils.showToast(message: message, isError: true);

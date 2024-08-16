@@ -2,6 +2,7 @@ import 'package:greengrocer/src/helpers/data_table_keys/user.dart';
 import 'package:greengrocer/src/helpers/utils/parse_errors.dart';
 import 'package:greengrocer/src/models/user.dart';
 import 'package:greengrocer/src/results/auth.dart';
+import 'package:greengrocer/src/results/reset_password.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class AuthRepository {
@@ -28,6 +29,20 @@ class AuthRepository {
     final response = await parseUser.save();
 
     return handleUserOrError(response);
+  }
+
+  Future<ResetPasswordResult> resetPassword(String email) async {
+    final ParseUser user = ParseUser(null, null, email);
+    final ParseResponse response = await user.requestPasswordReset();
+
+    if (response.success) {
+      return ResetPasswordResult.success(
+          'Solicitação de Recuperação de Senha Enviada!');
+    } else {
+      return ResetPasswordResult.error(
+        ParseErrors.getDescription(response.error?.code ?? -1),
+      );
+    }
   }
 
   AuthResult handleUserOrError(ParseResponse? response) {
