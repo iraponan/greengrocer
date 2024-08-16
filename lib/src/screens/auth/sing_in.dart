@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
+import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/auth/components/forgot_password_dialog.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
@@ -141,6 +142,10 @@ class _SingInScreenState extends State<SingInScreen> {
                                 email: emailController.text,
                               ),
                             );
+                            if (result ?? false) {
+                              MethodsUtils.showToast(
+                                  message: 'Verifique Seu E-mail!');
+                            }
                           },
                           child: Text(
                             'Esqueceu a Senha?',

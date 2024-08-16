@@ -8,6 +8,7 @@ Future<void> main() async {
   await AppInitialize.initializeEnv();
   await AppInitialize.initializeParseServer();
 
+  AppSetup.setupApp();
   AppSetup.setupControllers();
 
   runApp(const AppGreengrocer());

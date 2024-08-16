@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 
 mixin MethodsUtils {
   static void showToast({required String message, bool isError = false}) {
@@ -8,8 +9,10 @@ mixin MethodsUtils {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: isError ? Colors.red : Colors.white,
-      textColor: isError ? Colors.white : Colors.black,
+      backgroundColor: isError
+          ? CustomColors.customContrastColor
+          : CustomColors.customSwathColor,
+      textColor: Colors.white,
       fontSize: 14.0,
     );
   }
