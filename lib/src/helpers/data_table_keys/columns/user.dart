@@ -1,4 +1,4 @@
-mixin UserTable {
+mixin UserColumnKeys {
   static const id = 'objectId';
   static const name = 'name';
   static const email = 'email';

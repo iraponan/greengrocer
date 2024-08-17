@@ -1,4 +1,4 @@
-import 'package:greengrocer/src/helpers/data_table_keys/user.dart';
+import 'package:greengrocer/src/helpers/data_table_keys/columns/user.dart';
 import 'package:greengrocer/src/helpers/utils/parse_errors.dart';
 import 'package:greengrocer/src/models/user.dart';
 import 'package:greengrocer/src/results/auth.dart';
@@ -22,9 +22,9 @@ class AuthRepository {
     final ParseUser parseUser =
         ParseUser(user.email, user.password, user.email);
 
-    parseUser.set<String>(UserTable.name, user.name ?? '');
-    parseUser.set<String>(UserTable.phone, user.phone ?? '');
-    parseUser.set<String>(UserTable.cpfCnpj, user.cpfCnpj ?? '');
+    parseUser.set<String>(UserColumnKeys.name, user.name ?? '');
+    parseUser.set<String>(UserColumnKeys.phone, user.phone ?? '');
+    parseUser.set<String>(UserColumnKeys.cpfCnpj, user.cpfCnpj ?? '');
 
     final response = await parseUser.save();
 

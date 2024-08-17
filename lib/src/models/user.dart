@@ -1,4 +1,4 @@
-import 'package:greengrocer/src/helpers/data_table_keys/user.dart';
+import 'package:greengrocer/src/helpers/data_table_keys/columns/user.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class User {
@@ -24,10 +24,10 @@ class User {
     return User(
       id: parseUser.objectId ?? '',
       token: parseUser.sessionToken ?? '',
-      name: parseUser.get(UserTable.name),
-      email: parseUser.get(UserTable.email),
-      phone: parseUser.get(UserTable.phone),
-      cpfCnpj: parseUser.get(UserTable.cpfCnpj),
+      name: parseUser.get(UserColumnKeys.name),
+      email: parseUser.get(UserColumnKeys.email),
+      phone: parseUser.get(UserColumnKeys.phone),
+      cpfCnpj: parseUser.get(UserColumnKeys.cpfCnpj),
     );
   }
 
