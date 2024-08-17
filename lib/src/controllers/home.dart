@@ -9,6 +9,7 @@ class HomeController extends GetxController {
 
   bool isLoading = false;
   List<Category> allCategories = [];
+  Category? currentCategory;
 
   @override
   void onInit() {
@@ -29,7 +30,11 @@ class HomeController extends GetxController {
     homeResult.when(
       success: (data) {
         allCategories.assignAll(data);
-        print(allCategories);
+        if (allCategories.isEmpty) {
+          return;
+        } else {
+          selectCategory(allCategories.first);
+        }
       },
       error: (message) {
         MethodsUtils.showToast(
@@ -38,5 +43,10 @@ class HomeController extends GetxController {
         );
       },
     );
+  }
+
+  void selectCategory(Category category) {
+    currentCategory = category;
+    update();
   }
 }

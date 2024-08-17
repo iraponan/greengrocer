@@ -65,16 +65,6 @@ List<Product> items = [
   papaya,
 ];
 
-// Lista de categorias
-List<String> categories = [
-  'Frutas',
-  'Verduras',
-  'Legumes',
-  'Carnes',
-  'Cereais',
-  'Laticínios',
-];
-
 // Lista do Carrinho
 List<CartProduct> cartItems = [
   CartProduct(product: apple, quantity: 2),
