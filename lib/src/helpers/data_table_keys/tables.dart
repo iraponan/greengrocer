@@ -1,3 +1,4 @@
 mixin TablesNameKeys {
-  static const keyCategoriesTable = 'categories';
+  static const keyCategoriesTable = 'Categories';
+  static const keyProductsTable = 'Products';
 }

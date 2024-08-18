@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/home.dart';
-import 'package:greengrocer/src/data/products.dart' as items_data;
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
@@ -109,7 +108,7 @@ class _HomeTabState extends State<HomeTab> {
                 return Container(
                   padding: const EdgeInsets.only(left: 25),
                   height: 40,
-                  child: !controller.isLoading
+                  child: !controller.isCategoryLoading
                       ? ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => CategoryTile(
@@ -147,7 +146,7 @@ class _HomeTabState extends State<HomeTab> {
             GetBuilder<HomeController>(
               builder: (controller) {
                 return Expanded(
-                  child: !controller.isLoading
+                  child: !controller.isProductLoading
                       ? GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                           physics: const BouncingScrollPhysics(),
@@ -158,9 +157,9 @@ class _HomeTabState extends State<HomeTab> {
                             crossAxisSpacing: 10,
                             childAspectRatio: 9 / 11.5,
                           ),
-                          itemCount: items_data.items.length,
+                          itemCount: controller.allProducts.length,
                           itemBuilder: (context, index) => ItemTile(
-                            item: items_data.items[index],
+                            item: controller.allProducts[index],
                             cartAnimationMethod: itemSelectedCartAnimations,
                           ),
                         )
@@ -172,7 +171,7 @@ class _HomeTabState extends State<HomeTab> {
                           crossAxisSpacing: 10,
                           childAspectRatio: 9 / 11.5,
                           children: List.generate(
-                            items_data.items.length,
+                            controller.allProducts.length,
                             (index) => CustomShimmer(
                               height: double.infinity,
                               width: double.infinity,

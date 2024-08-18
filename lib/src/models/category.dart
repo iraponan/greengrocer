@@ -11,8 +11,8 @@ class Category {
   });
 
   Category.fromParse(ParseObject parseObject)
-      : id = parseObject.objectId ?? '*',
-        name = parseObject.get(CategoryColumnKeys.name) ?? 'Todas';
+      : id = parseObject.objectId ?? '',
+        name = parseObject.get(CategoryColumnKeys.name) ?? '';
 
   @override
   String toString() {

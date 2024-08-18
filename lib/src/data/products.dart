@@ -1,4 +1,5 @@
 import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/category.dart';
 import 'package:greengrocer/src/models/product.dart';
 
 Product apple = Product(
@@ -8,6 +9,7 @@ Product apple = Product(
   productName: 'Maçã',
   price: 5.5,
   unit: 'KG',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 Product grape = Product(
@@ -17,6 +19,7 @@ Product grape = Product(
   unit: 'KG',
   description:
       'A melhor uva da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 Product guava = Product(
@@ -26,6 +29,7 @@ Product guava = Product(
   unit: 'KG',
   description:
       'A melhor goiaba da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 Product kiwi = Product(
@@ -35,6 +39,7 @@ Product kiwi = Product(
   unit: 'UN',
   description:
       'O melhor kiwi da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 Product mango = Product(
@@ -44,6 +49,7 @@ Product mango = Product(
   unit: 'UN',
   description:
       'A melhor manga da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 Product papaya = Product(
@@ -53,6 +59,7 @@ Product papaya = Product(
   unit: 'KG',
   description:
       'O melhor mamão da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+  category: Category(id: 'AHu5fWo4RS', name: 'Frutas'),
 );
 
 // Lista de produtos
