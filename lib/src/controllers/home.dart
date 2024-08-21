@@ -56,13 +56,16 @@ class HomeController extends GetxController {
 
   void selectCategory(Category category) {
     currentCategory = category;
+    products.clear();
     update();
     page = 0;
     gelAllProducts();
   }
 
-  Future<void> gelAllProducts() async {
-    setLoading(true, isProduct: true);
+  Future<void> gelAllProducts({bool canLoad = true}) async {
+    if (canLoad) {
+      setLoading(true, isProduct: true);
+    }
 
     String search = '';
     Category category = Category(id: 'AHu5fWo4RS', name: 'Frutas');
@@ -77,7 +80,7 @@ class HomeController extends GetxController {
 
     result.when(
       success: (product) {
-        products = product;
+        products.addAll(product);
       },
       error: (message) {
         MethodsUtils.showToast(
@@ -89,4 +92,16 @@ class HomeController extends GetxController {
   }
 
   List<Product> get allProducts => products;
+
+  bool get isLastPage {
+    if (products.length < ConfigPage.itemsPerPage) {
+      return true;
+    }
+    return page * ConfigPage.itemsPerPage > allProducts.length;
+  }
+
+  void loadMoreProducts() {
+    page++;
+    gelAllProducts(canLoad: false);
+  }
 }

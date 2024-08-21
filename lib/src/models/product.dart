@@ -28,7 +28,9 @@ class Product {
                 .url ??
             '',
         unit = object.get<String>(ProductsColumnKeys.unit) ?? '',
-        price = object.get<double>(ProductsColumnKeys.price) ?? 0,
+        price = double.tryParse(
+                object.get<num>(ProductsColumnKeys.price).toString()) ??
+            0,
         description = object.get<String>(ProductsColumnKeys.description) ?? '',
         category = Category.fromParse(object.get(ProductsColumnKeys.category));
 
