@@ -27,8 +27,8 @@ class HomeRepository {
 
   Future<HomeResult<Product>> getAllProducts({
     required int page,
-    required String searchName,
-    required Category category,
+    String searchName = '',
+    Category? category,
     required int itemsPerPage,
   }) async {
     final queryBuilder =
@@ -36,11 +36,15 @@ class HomeRepository {
           ..includeObject([ProductsColumnKeys.category])
           ..setAmountToSkip(page * itemsPerPage)
           ..setLimit(itemsPerPage)
-          ..whereEqualTo(
-              ProductsColumnKeys.category,
-              (ParseObject(TablesNameKeys.keyCategoriesTable)
-                    ..set(CategoryColumnKeys.id, category.id))
-                  .toPointer());
+          ..orderByAscending(ProductsColumnKeys.name);
+
+    if (category != null && category.id != 'Todos') {
+      queryBuilder.whereEqualTo(
+          ProductsColumnKeys.category,
+          (ParseObject(TablesNameKeys.keyCategoriesTable)
+                ..set(CategoryColumnKeys.id, category.id))
+              .toPointer());
+    }
 
     if (searchName.trim().isNotEmpty) {
       queryBuilder.whereContains(

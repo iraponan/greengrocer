@@ -20,10 +20,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   late Function(GlobalKey) runAddToCartAnimation;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,32 +73,52 @@ class _HomeTabState extends State<HomeTab> {
         child: Column(
           children: [
             // # Campo de Pesquisa #
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  isDense: true,
-                  hintText: 'Pesquise aqui...',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: CustomColors.customContrastColor,
-                    size: 21,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(60),
-                    borderSide: const BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+            GetBuilder<HomeController>(builder: (controller) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: TextFormField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    controller.searchProductName.value = value;
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    isDense: true,
+                    hintText: 'Pesquise aqui...',
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade400,
                     ),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: CustomColors.customContrastColor,
+                      size: 21,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(60),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    suffixIcon: controller.searchProductName.value.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              searchController.clear();
+                              controller.searchProductName.value = '';
+                              FocusScope.of(context).unfocus();
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: CustomColors.customContrastColor,
+                            ),
+                          )
+                        : null,
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
             // # Categorias #
             GetBuilder<HomeController>(
               builder: (controller) {
@@ -113,6 +130,7 @@ class _HomeTabState extends State<HomeTab> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => CategoryTile(
                             onTap: () {
+                              FocusScope.of(context).unfocus();
                               controller.selectCategory(
                                   controller.allCategories[index]);
                             },
@@ -147,27 +165,49 @@ class _HomeTabState extends State<HomeTab> {
               builder: (controller) {
                 return Expanded(
                   child: !controller.isProductLoading
-                      ? GridView.builder(
-                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                          physics: const BouncingScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 9 / 11.5,
+                      ? Visibility(
+                          visible: (controller.products).isNotEmpty,
+                          replacement: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search_off,
+                                size: 150,
+                                color: CustomColors.customSwathColor,
+                              ),
+                              const Text(
+                                'Não há produtos para apresentar.',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          itemCount: controller.allProducts.length,
-                          itemBuilder: (context, index) {
-                            if ((index + 1) == controller.allProducts.length &&
-                                !controller.isLastPage) {
-                              controller.loadMoreProducts();
-                            }
-                            return ItemTile(
-                              item: controller.allProducts[index],
-                              cartAnimationMethod: itemSelectedCartAnimations,
-                            );
-                          },
+                          child: GridView.builder(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                            physics: const BouncingScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 9 / 11.5,
+                            ),
+                            itemCount: controller.products.length,
+                            itemBuilder: (context, index) {
+                              if ((index + 1) == controller.products.length &&
+                                  !controller.isLastPage) {
+                                controller.loadMoreProducts();
+                              }
+                              return ItemTile(
+                                item: controller.products[index],
+                                cartAnimationMethod: itemSelectedCartAnimations,
+                              );
+                            },
+                          ),
                         )
                       : GridView.count(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -177,7 +217,7 @@ class _HomeTabState extends State<HomeTab> {
                           crossAxisSpacing: 10,
                           childAspectRatio: 9 / 11.5,
                           children: List.generate(
-                            controller.allProducts.length,
+                            controller.products.length,
                             (index) => CustomShimmer(
                               height: double.infinity,
                               width: double.infinity,

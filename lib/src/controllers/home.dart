@@ -7,18 +7,27 @@ import 'package:greengrocer/src/repositories/home.dart';
 import 'package:greengrocer/src/results/home.dart';
 
 class HomeController extends GetxController {
+  RxString searchProductName = ''.obs;
+
   final homeRepository = HomeRepository();
 
   bool isCategoryLoading = false;
   bool isProductLoading = true;
-  List<Category> allCategories = [];
+  List<Category> allCategories = [Category(id: 'Todos', name: 'Todos')];
   List<Product> products = [];
-  Category? currentCategory;
+  late Category currentCategory;
   int page = 0;
 
   @override
   void onInit() {
     super.onInit();
+    currentCategory = allCategories.firstWhereOrNull((cat) => cat.id == '') ??
+        Category(id: 'Todos', name: 'Todos');
+    debounce(
+      searchProductName,
+      (value) => filterByName(),
+      time: const Duration(milliseconds: 600),
+    );
     getAllCategories();
   }
 
@@ -38,11 +47,11 @@ class HomeController extends GetxController {
 
     homeResult.when(
       success: (category) {
-        allCategories.assignAll(category);
+        allCategories.addAll(category);
         if (allCategories.isEmpty) {
           return;
         } else {
-          selectCategory(allCategories.firstWhere((c) => c.name == 'Frutas'));
+          selectCategory(allCategories.firstWhere((c) => c.id == 'Todos'));
         }
       },
       error: (message) {
@@ -67,15 +76,23 @@ class HomeController extends GetxController {
       setLoading(true, isProduct: true);
     }
 
-    String search = '';
-    Category category = Category(id: 'AHu5fWo4RS', name: 'Frutas');
+    HomeResult<Product> result;
 
-    HomeResult<Product> result = await homeRepository.getAllProducts(
-      page: page,
-      searchName: search,
-      category: currentCategory ?? category,
-      itemsPerPage: ConfigPage.itemsPerPage,
-    );
+    if (searchProductName.value.isNotEmpty) {
+      result = await homeRepository.getAllProducts(
+        page: page,
+        category: currentCategory,
+        searchName: searchProductName.value,
+        itemsPerPage: ConfigPage.itemsPerPage,
+      );
+    } else {
+      result = await homeRepository.getAllProducts(
+        page: page,
+        category: currentCategory,
+        itemsPerPage: ConfigPage.itemsPerPage,
+      );
+    }
+
     setLoading(false, isProduct: true);
 
     result.when(
@@ -91,17 +108,29 @@ class HomeController extends GetxController {
     );
   }
 
-  List<Product> get allProducts => products;
-
   bool get isLastPage {
     if (products.length < ConfigPage.itemsPerPage) {
       return true;
     }
-    return page * ConfigPage.itemsPerPage > allProducts.length;
+    return page * ConfigPage.itemsPerPage > products.length;
   }
 
   void loadMoreProducts() {
     page++;
     gelAllProducts(canLoad: false);
+  }
+
+  void filterByName() {
+    if (searchProductName.value.isNotEmpty) {
+      //allCategories.removeWhere((cat) => cat.id != 'Todos');
+      products.clear();
+      page = 0;
+    } else {
+      getAllCategories();
+    }
+    currentCategory =
+        allCategories.firstWhereOrNull((cat) => cat.id == 'Todos') ??
+            Category(id: 'Todos', name: 'Todos');
+    gelAllProducts();
   }
 }
