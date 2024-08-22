@@ -1,4 +1,4 @@
-import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/models/category.dart';
 import 'package:greengrocer/src/models/product.dart';
 
@@ -73,8 +73,8 @@ List<Product> items = [
 ];
 
 // Lista do Carrinho
-List<CartProduct> cartItems = [
-  CartProduct(product: apple, quantity: 2),
-  CartProduct(product: mango, quantity: 1),
-  CartProduct(product: guava, quantity: 3),
+List<CartItems> cartItems = [
+  CartItems(product: apple, quantity: 2),
+  CartItems(product: mango, quantity: 1),
+  CartItems(product: guava, quantity: 3),
 ];

@@ -1,5 +1,5 @@
 import 'package:greengrocer/src/helpers/enums/payment_status.dart';
-import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/cart_items.dart';
 
 class Order {
   Order({
@@ -15,7 +15,7 @@ class Order {
   String id;
   DateTime createdDateTime;
   DateTime overdueDateTime;
-  List<CartProduct> items;
+  List<CartItems> items;
   PaymentStatus status;
   String copyAndPast;
   double total;

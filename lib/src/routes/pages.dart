@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:greengrocer/src/bindings/cart_items.dart';
 import 'package:greengrocer/src/bindings/home.dart';
 import 'package:greengrocer/src/bindings/navigation.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
@@ -27,6 +28,7 @@ mixin AppPages {
       bindings: [
         NavigationBinding(),
         HomeBinding(),
+        CartItemsBinding(),
       ],
     ),
   ];

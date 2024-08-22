@@ -8,7 +8,7 @@ import 'package:greengrocer/src/data/products.dart' as items_data;
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
-import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
 
@@ -141,7 +141,7 @@ class _CartTabState extends State<CartTab> {
     );
   }
 
-  void removeItemFromCart(CartProduct cartItem) {
+  void removeItemFromCart(CartItems cartItem) {
     setState(() {
       items_data.cartItems.remove(cartItem);
       MethodsUtils.showToast(

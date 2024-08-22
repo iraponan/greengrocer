@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
 class CartTile extends StatefulWidget {
@@ -11,7 +11,7 @@ class CartTile extends StatefulWidget {
     required this.updateQuantity,
   });
 
-  final CartProduct cartItem;
+  final CartItems cartItem;
   final Function(int) updateQuantity;
 
   @override

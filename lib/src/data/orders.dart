@@ -1,6 +1,6 @@
 import 'package:greengrocer/src/data/products.dart';
 import 'package:greengrocer/src/helpers/enums/payment_status.dart';
-import 'package:greengrocer/src/models/cart_product.dart';
+import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/models/order.dart';
 
 List<Order> orders = [
@@ -9,11 +9,11 @@ List<Order> orders = [
     createdDateTime: DateTime(2024, 6, 1, 10, 15, 10, 458),
     overdueDateTime: DateTime(2024, 12, 1, 11, 15, 10, 458),
     items: [
-      CartProduct(
+      CartItems(
         product: apple,
         quantity: 2,
       ),
-      CartProduct(
+      CartItems(
         product: mango,
         quantity: 3,
       ),
@@ -27,7 +27,7 @@ List<Order> orders = [
     createdDateTime: DateTime(2024, 6, 1, 16, 30, 55, 012),
     overdueDateTime: DateTime(2024, 12, 1, 17, 30, 55, 012),
     items: [
-      CartProduct(
+      CartItems(
         product: guava,
         quantity: 1,
       ),
