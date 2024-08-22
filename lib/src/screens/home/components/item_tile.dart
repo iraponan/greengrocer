@@ -30,7 +30,7 @@ class _ItemTileState extends State<ItemTile> {
         InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (c) => ProductScreen(item: widget.item),
+              builder: (c) => ProductScreen(product: widget.item),
             ),
           ),
           child: Card(

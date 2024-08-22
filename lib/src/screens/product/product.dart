@@ -1,20 +1,25 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/navigation.dart';
+import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/product.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key, required this.item});
+  const ProductScreen({super.key, required this.product});
 
-  final Product item;
+  final Product product;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  final navigationController = Get.find<NavigationController>();
+
   int cartItemQuantity = 1;
 
   @override
@@ -29,8 +34,8 @@ class _ProductScreenState extends State<ProductScreen> {
               // # Imagem #
               Expanded(
                 child: Hero(
-                  tag: widget.item.imgUrl,
-                  child: Image.network(widget.item.imgUrl),
+                  tag: widget.product.imgUrl,
+                  child: Image.network(widget.product.imgUrl),
                 ),
               ),
               // # Conteúdo #
@@ -58,7 +63,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              widget.item.productName,
+                              widget.product.productName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -70,7 +75,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           // # Quantidade #
                           QuantityWidget(
                             quantity: cartItemQuantity,
-                            suffixText: widget.item.unit,
+                            suffixText: widget.product.unit,
                             isRemovable: false,
                             result: (quantity) => setState(() {
                               cartItemQuantity = quantity;
@@ -81,7 +86,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       // # Preço #
                       Text(
                         UtilBrasilFields.obterReal(
-                          widget.item.price,
+                          widget.product.price,
                           moeda: true,
                         ),
                         style: TextStyle(
@@ -96,7 +101,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: SingleChildScrollView(
                             child: Text(
-                              widget.item.description,
+                              widget.product.description,
                               style: const TextStyle(
                                 height: 1.5,
                               ),
@@ -109,7 +114,11 @@ class _ProductScreenState extends State<ProductScreen> {
                       SizedBox(
                         height: VariablesUtils.heightButton,
                         child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.back();
+                            navigationController.navigatePageView(
+                                page: NavigationTabs.cart.index);
+                          },
                           icon: const Icon(
                             Icons.shopping_cart_outlined,
                           ),

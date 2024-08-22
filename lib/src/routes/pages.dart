@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:greengrocer/src/bindings/home.dart';
+import 'package:greengrocer/src/bindings/navigation.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/screens/auth/sing_in.dart';
 import 'package:greengrocer/src/screens/auth/sing_up.dart';
@@ -24,6 +25,7 @@ mixin AppPages {
       name: PageRoutes.baseRoute,
       page: () => const BaseScreen(),
       bindings: [
+        NavigationBinding(),
         HomeBinding(),
       ],
     ),

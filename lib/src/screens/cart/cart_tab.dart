@@ -1,8 +1,11 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/data/orders.dart' as orders_data;
 import 'package:greengrocer/src/data/products.dart' as items_data;
+import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/cart_product.dart';
@@ -17,6 +20,8 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
+  final navigationController = Get.find<NavigationController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +63,8 @@ class _CartTabState extends State<CartTab> {
                             VariablesUtils.globalKeyCartItems.currentState
                                 ?.runClearCartAnimation();
                             items_data.cartItems.clear();
-                            VariablesUtils.selectedPage = 0;
-                            VariablesUtils.pageController.animateToPage(
-                              VariablesUtils.selectedPage,
-                              duration: VariablesUtils.pageAnimationDuration,
-                              curve: Curves.ease,
-                            );
+                            navigationController.navigatePageView(
+                                page: NavigationTabs.home.index);
                           }),
                           icon: const Icon(Icons.cleaning_services_rounded),
                           label: const Text('Limpar Carrinho'),

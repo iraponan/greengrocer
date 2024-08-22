@@ -1,8 +1,10 @@
 import 'package:bottom_bar_matu/bottom_bar_double_bullet/bottom_bar_double_bullet.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/controllers/navigation.dart';
+import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
 import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';
@@ -17,6 +19,8 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
+  final navigationController = Get.find<NavigationController>();
+
   @override
   Widget build(BuildContext context) {
     Color colorSelected = Colors.white;
@@ -24,7 +28,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
     return Scaffold(
       body: PageView(
-        controller: VariablesUtils.pageController,
+        controller: navigationController.pageController,
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (page) => setState(() {}),
         children: const [
@@ -34,59 +38,60 @@ class _BaseScreenState extends State<BaseScreen> {
           ProfileTab(),
         ],
       ),
-      bottomNavigationBar: BottomBarDoubleBullet(
-        backgroundColor: CustomColors.customSwathColor,
-        circle1Color: Colors.red,
-        circle2Color: Colors.blue,
-        color: Colors.white,
-        selectedIndex: VariablesUtils.selectedPage,
-        items: [
-          BottomBarItem(
-            iconBuilder: (color) => CustomBottomBarItem(
-              colorSelected: colorSelected,
-              colorUnselected: colorUnselected,
-              iconData: Icons.home_outlined,
-              label: 'Home',
-              isSelected: VariablesUtils.selectedPage == 0,
+      bottomNavigationBar: Obx(() {
+        return BottomBarDoubleBullet(
+          backgroundColor: CustomColors.customSwathColor,
+          circle1Color: Colors.red,
+          circle2Color: Colors.blue,
+          color: Colors.white,
+          selectedIndex: navigationController.currentIndex,
+          items: [
+            BottomBarItem(
+              iconBuilder: (color) => CustomBottomBarItem(
+                colorSelected: colorSelected,
+                colorUnselected: colorUnselected,
+                iconData: Icons.home_outlined,
+                label: 'Home',
+                isSelected: navigationController.currentIndex ==
+                    NavigationTabs.home.index,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => CustomBottomBarItem(
-              colorSelected: colorSelected,
-              colorUnselected: colorUnselected,
-              iconData: Icons.shopping_cart_outlined,
-              label: 'Carrinho',
-              isSelected: VariablesUtils.selectedPage == 1,
+            BottomBarItem(
+              iconBuilder: (color) => CustomBottomBarItem(
+                colorSelected: colorSelected,
+                colorUnselected: colorUnselected,
+                iconData: Icons.shopping_cart_outlined,
+                label: 'Carrinho',
+                isSelected: navigationController.currentIndex ==
+                    NavigationTabs.cart.index,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => CustomBottomBarItem(
-              colorSelected: colorSelected,
-              colorUnselected: colorUnselected,
-              iconData: Icons.list_outlined,
-              label: 'Pedidos',
-              isSelected: VariablesUtils.selectedPage == 2,
+            BottomBarItem(
+              iconBuilder: (color) => CustomBottomBarItem(
+                colorSelected: colorSelected,
+                colorUnselected: colorUnselected,
+                iconData: Icons.list_outlined,
+                label: 'Pedidos',
+                isSelected: navigationController.currentIndex ==
+                    NavigationTabs.orders.index,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => CustomBottomBarItem(
-              colorSelected: colorSelected,
-              colorUnselected: colorUnselected,
-              iconData: Icons.person_outline,
-              label: 'Perfil',
-              isSelected: VariablesUtils.selectedPage == 3,
+            BottomBarItem(
+              iconBuilder: (color) => CustomBottomBarItem(
+                colorSelected: colorSelected,
+                colorUnselected: colorUnselected,
+                iconData: Icons.person_outline,
+                label: 'Perfil',
+                isSelected: navigationController.currentIndex ==
+                    NavigationTabs.profile.index,
+              ),
             ),
-          ),
-        ],
-        onSelect: (value) {
-          VariablesUtils.selectedPage = value;
-          VariablesUtils.pageController.animateToPage(
-            VariablesUtils.selectedPage,
-            duration: VariablesUtils.pageAnimationDuration,
-            curve: Curves.ease,
-          );
-        },
-      ),
+          ],
+          onSelect: (page) {
+            navigationController.navigatePageView(page: page);
+          },
+        );
+      }),
     );
   }
 }
