@@ -10,15 +10,14 @@ import 'package:greengrocer/src/models/product.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key, required this.product});
-
-  final Product product;
+  const ProductScreen({super.key});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  final Product product = Get.arguments;
   final navigationController = Get.find<NavigationController>();
   final cartItemsController = Get.find<CartItemsController>();
 
@@ -36,8 +35,8 @@ class _ProductScreenState extends State<ProductScreen> {
               // # Imagem #
               Expanded(
                 child: Hero(
-                  tag: widget.product.imgUrl,
-                  child: Image.network(widget.product.imgUrl),
+                  tag: product.imgUrl,
+                  child: Image.network(product.imgUrl),
                 ),
               ),
               // # Conteúdo #
@@ -65,7 +64,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              widget.product.productName,
+                              product.productName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -77,7 +76,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           // # Quantidade #
                           QuantityWidget(
                             quantity: cartItemQuantity,
-                            suffixText: widget.product.unit,
+                            suffixText: product.unit,
                             isRemovable: false,
                             result: (quantity) => setState(() {
                               cartItemQuantity = quantity;
@@ -88,7 +87,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       // # Preço #
                       Text(
                         UtilBrasilFields.obterReal(
-                          widget.product.price,
+                          product.price,
                           moeda: true,
                         ),
                         style: TextStyle(
@@ -103,7 +102,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: SingleChildScrollView(
                             child: Text(
-                              widget.product.description,
+                              product.description,
                               style: const TextStyle(
                                 height: 1.5,
                               ),
@@ -119,7 +118,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           onPressed: () {
                             Get.back();
                             cartItemsController.addItemToCart(
-                              product: widget.product,
+                              product: product,
                               quantity: cartItemQuantity,
                             );
                             navigationController.navigatePageView(

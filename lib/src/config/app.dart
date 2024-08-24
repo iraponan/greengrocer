@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:greengrocer/src/config/page_routes.dart';
 import 'package:greengrocer/src/config/theme.dart';
-import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/routes/pages.dart';
 
 class AppGreengrocer extends StatelessWidget {

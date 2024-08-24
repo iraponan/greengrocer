@@ -1,18 +1,19 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/config/page_routes.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/product.dart';
-import 'package:greengrocer/src/screens/product/product.dart';
 
 class ItemTile extends StatefulWidget {
   const ItemTile({
     super.key,
-    required this.item,
+    required this.product,
     required this.cartAnimationMethod,
   });
 
-  final Product item;
+  final Product product;
   final void Function(GlobalKey) cartAnimationMethod;
 
   @override
@@ -28,11 +29,8 @@ class _ItemTileState extends State<ItemTile> {
     return Stack(
       children: [
         InkWell(
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (c) => ProductScreen(product: widget.item),
-            ),
-          ),
+          onTap: () =>
+              Get.toNamed(PageRoutes.productRoute, arguments: widget.product),
           child: Card(
             shadowColor: Colors.grey.shade300,
             shape: RoundedRectangleBorder(
@@ -46,18 +44,18 @@ class _ItemTileState extends State<ItemTile> {
                   // # Imagem #
                   Expanded(
                     child: Hero(
-                      tag: widget.item.imgUrl,
+                      tag: widget.product.imgUrl,
                       child: Container(
                         key: imageGk,
                         child: Image.network(
-                          widget.item.imgUrl,
+                          widget.product.imgUrl,
                         ),
                       ),
                     ),
                   ),
                   // # Nome do produto #
                   Text(
-                    widget.item.productName,
+                    widget.product.productName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -68,7 +66,7 @@ class _ItemTileState extends State<ItemTile> {
                     children: [
                       Text(
                         UtilBrasilFields.obterReal(
-                          widget.item.price,
+                          widget.product.price,
                           moeda: true,
                         ),
                         style: TextStyle(
@@ -77,7 +75,7 @@ class _ItemTileState extends State<ItemTile> {
                             color: CustomColors.customSwathColor),
                       ),
                       Text(
-                        '/${widget.item.unit}',
+                        '/${widget.product.unit}',
                         style: TextStyle(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.bold,

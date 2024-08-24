@@ -203,7 +203,7 @@ class _HomeTabState extends State<HomeTab> {
                                 controller.loadMoreProducts();
                               }
                               return ItemTile(
-                                item: controller.products[index],
+                                product: controller.products[index],
                                 cartAnimationMethod: itemSelectedCartAnimations,
                               );
                             },
