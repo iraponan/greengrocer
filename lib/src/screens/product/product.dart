@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
@@ -19,6 +20,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final navigationController = Get.find<NavigationController>();
+  final cartItemsController = Get.find<CartItemsController>();
 
   int cartItemQuantity = 1;
 
@@ -116,6 +118,10 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             Get.back();
+                            cartItemsController.addItemToCart(
+                              product: widget.product,
+                              quantity: cartItemQuantity,
+                            );
                             navigationController.navigatePageView(
                                 page: NavigationTabs.cart.index);
                           },

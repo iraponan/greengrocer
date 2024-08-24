@@ -25,7 +25,7 @@ class _CartTileState extends State<CartTile> {
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ListTile(
         // # Imagem #
-        leading: Image.asset(
+        leading: Image.network(
           widget.cartItem.product.imgUrl,
           height: 60,
           width: 60,

@@ -20,6 +20,12 @@ class CartItems {
                 object.get<num>(CartItemsColumnKeys.quantity).toString()) ??
             0;
 
+  CartItems.fromParseToAddCart(ParseObject object, this.product)
+      : id = object.objectId ?? '',
+        quantity = int.tryParse(
+                object.get<num>(CartItemsColumnKeys.quantity).toString()) ??
+            0;
+
   double totalPrice() => product.price * quantity;
 
   @override

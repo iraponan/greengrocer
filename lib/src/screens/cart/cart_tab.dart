@@ -2,9 +2,9 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/data/orders.dart' as orders_data;
-import 'package:greengrocer/src/data/products.dart' as items_data;
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
@@ -21,6 +21,7 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final navigationController = Get.find<NavigationController>();
+  final cartItemsController = Get.find<CartItemsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +37,27 @@ class _CartTabState extends State<CartTab> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                ListView.builder(
-                  itemCount: items_data.cartItems.length,
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final cartItem = items_data.cartItems[index];
-                    return CartTile(
-                      cartItem: items_data.cartItems[index],
-                      updateQuantity: (qtd) {
-                        if (qtd == 0) {
-                          removeItemFromCart(items_data.cartItems[index]);
-                        } else {
-                          setState(() => cartItem.quantity = qtd);
-                        }
-                      },
-                    );
-                  },
-                ),
-                items_data.cartItems.isNotEmpty
+                GetBuilder<CartItemsController>(builder: (controller) {
+                  return ListView.builder(
+                    itemCount: controller.cartItems.length,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final cartItem = controller.cartItems[index];
+                      return CartTile(
+                        cartItem: controller.cartItems[index],
+                        updateQuantity: (qtd) {
+                          if (qtd == 0) {
+                            removeItemFromCart(controller.cartItems[index]);
+                          } else {
+                            setState(() => cartItem.quantity = qtd);
+                          }
+                        },
+                      );
+                    },
+                  );
+                }),
+                cartItemsController.cartItems.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.all(10),
                         child: ElevatedButton.icon(
@@ -62,7 +65,7 @@ class _CartTabState extends State<CartTab> {
                             VariablesUtils.cartQuantityItems = 0;
                             VariablesUtils.globalKeyCartItems.currentState
                                 ?.runClearCartAnimation();
-                            items_data.cartItems.clear();
+                            cartItemsController.cartItems.clear();
                             navigationController.navigatePageView(
                                 page: NavigationTabs.home.index);
                           }),
@@ -98,14 +101,17 @@ class _CartTabState extends State<CartTab> {
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  UtilBrasilFields.obterReal(cartTotalPrice(), moeda: true),
-                  style: TextStyle(
-                    fontSize: 23,
-                    color: CustomColors.customSwathColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                GetBuilder<CartItemsController>(builder: (controller) {
+                  return Text(
+                    UtilBrasilFields.obterReal(controller.cartTotalPrice(),
+                        moeda: true),
+                    style: TextStyle(
+                      fontSize: 23,
+                      color: CustomColors.customSwathColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: VariablesUtils.heightButton,
                   child: ElevatedButton(
@@ -143,19 +149,13 @@ class _CartTabState extends State<CartTab> {
 
   void removeItemFromCart(CartItems cartItem) {
     setState(() {
-      items_data.cartItems.remove(cartItem);
+      cartItemsController.cartItems.remove(cartItem);
       MethodsUtils.showToast(
-          message:
-              'Produto: ${cartItem.product.productName} removido(a) do carrinho.');
+        message:
+            'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
+        isCartRemove: true,
+      );
     });
-  }
-
-  double cartTotalPrice() {
-    double total = 0;
-    for (var item in items_data.cartItems) {
-      total += item.totalPrice();
-    }
-    return total;
   }
 
   Future<bool?> showOrderConfirmation() => showDialog<bool>(
