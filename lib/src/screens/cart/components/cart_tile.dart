@@ -39,13 +39,19 @@ class _CartTileState extends State<CartTile> {
         ),
         // # Total #
         subtitle: Text(
-          UtilBrasilFields.obterReal(
+          '${UtilBrasilFields.obterReal(
+            widget.cartItem.product.price,
+            moeda: true,
+          )} x ${widget.cartItem.quantity}'
+          ' ${widget.cartItem.product.unit}\n'
+          '${UtilBrasilFields.obterReal(
             widget.cartItem.totalPrice(),
             moeda: true,
-          ),
+          )}',
           style: TextStyle(
             color: CustomColors.customSwathColor,
             fontWeight: FontWeight.bold,
+            fontSize: 12,
           ),
         ),
         // # Quantidade #

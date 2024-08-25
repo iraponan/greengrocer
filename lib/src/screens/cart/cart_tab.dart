@@ -24,40 +24,42 @@ class CartTab extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                GetBuilder<CartItemsController>(builder: (controller) {
-                  return ListView.builder(
-                    itemCount: controller.cartItems.length,
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final cartItem = controller.cartItems[index];
-                      return CartTile(
-                        cartItem: controller.cartItems[index],
-                        updateQuantity: (qtd) {
-                          if (qtd == 0) {
-                            cartItem.quantity = 0;
-                            controller.changeItemQuantity(cartItem: cartItem);
-                            controller.cartItems.remove(cartItem);
-                            MethodsUtils.showToast(
-                              message:
-                                  'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
-                              isCartRemove: true,
-                            );
-                          } else {
-                            cartItem.quantity = qtd;
-                            controller.changeItemQuantity(cartItem: cartItem);
-                          }
-                        },
-                      );
-                    },
-                  );
-                }),
-                GetBuilder<CartItemsController>(
-                    builder: (controller) => controller.cartItems.isNotEmpty
-                        ? Padding(
+            child: GetBuilder<CartItemsController>(
+              builder: (controller) => controller.cartItems.isNotEmpty
+                  ? SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ListView.builder(
+                            itemCount: controller.cartItems.length,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final cartItem = controller.cartItems[index];
+                              return CartTile(
+                                cartItem: controller.cartItems[index],
+                                updateQuantity: (qtd) {
+                                  if (qtd == 0) {
+                                    cartItem.quantity = 0;
+                                    controller.changeItemQuantity(
+                                        cartItem: cartItem);
+                                    controller.cartItems.remove(cartItem);
+                                    MethodsUtils.showToast(
+                                      message:
+                                          'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
+                                      isCartRemove: true,
+                                    );
+                                  } else {
+                                    cartItem.quantity = qtd;
+                                    controller.changeItemQuantity(
+                                        cartItem: cartItem);
+                                  }
+                                },
+                              );
+                            },
+                          ),
+                          Padding(
                             padding: const EdgeInsets.all(10),
                             child: ElevatedButton.icon(
                               onPressed: () {
@@ -76,8 +78,27 @@ class CartTab extends StatelessWidget {
                               label: const Text('Limpar Carrinho'),
                             ),
                           )
-                        : Container())
-              ],
+                        ],
+                      ),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.remove_shopping_cart,
+                          size: 40,
+                          color: CustomColors.customSwathColor,
+                        ),
+                        Text(
+                          'Não há itens no carrinho!',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.customSwathColor),
+                        ),
+                      ],
+                    ),
             ),
           ),
           Container(
@@ -97,24 +118,66 @@ class CartTab extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Total Geral:',
-                  style: TextStyle(
-                    fontSize: 12,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            'Qtd de Itens:',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          GetBuilder<CartItemsController>(
+                              builder: (controller) {
+                            return Text(
+                              controller.getCartQtdTotalItens().toString(),
+                              style: TextStyle(
+                                fontSize: 23,
+                                color: CustomColors.customSwathColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 50,
+                        child: VerticalDivider(
+                          color: Colors.black,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Total Geral:',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          GetBuilder<CartItemsController>(
+                              builder: (controller) {
+                            return Text(
+                              UtilBrasilFields.obterReal(
+                                  controller.cartTotalPrice(),
+                                  moeda: true),
+                              style: TextStyle(
+                                fontSize: 23,
+                                color: CustomColors.customSwathColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                GetBuilder<CartItemsController>(builder: (controller) {
-                  return Text(
-                    UtilBrasilFields.obterReal(controller.cartTotalPrice(),
-                        moeda: true),
-                    style: TextStyle(
-                      fontSize: 23,
-                      color: CustomColors.customSwathColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }),
                 SizedBox(
                   height: VariablesUtils.heightButton,
                   child: ElevatedButton(

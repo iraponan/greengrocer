@@ -115,14 +115,19 @@ class _ProductScreenState extends State<ProductScreen> {
                       SizedBox(
                         height: VariablesUtils.heightButton,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Get.back();
+                          onPressed: () async {
                             cartItemsController.addItemToCart(
                               product: product,
                               quantity: cartItemQuantity,
                             );
-                            navigationController.navigatePageView(
-                                page: NavigationTabs.cart.index);
+                            if (await showAddProductConfirmation(context) ??
+                                false) {
+                              Get.back();
+                            } else {
+                              Get.back();
+                              navigationController.navigatePageView(
+                                  page: NavigationTabs.cart.index);
+                            }
                           },
                           icon: const Icon(
                             Icons.shopping_cart_outlined,
@@ -159,4 +164,28 @@ class _ProductScreenState extends State<ProductScreen> {
       ),
     );
   }
+
+  Future<bool?> showAddProductConfirmation(BuildContext context) =>
+      showDialog<bool>(
+        context: context,
+        builder: (c) => AlertDialog(
+          title: const Text('Confirmação'),
+          content: const Text('Deseja continuar comprando?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text(
+                'Não',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Sim'),
+            ),
+          ],
+        ),
+      );
 }

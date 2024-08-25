@@ -2,6 +2,7 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/home.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
@@ -21,6 +22,7 @@ class _HomeTabState extends State<HomeTab> {
   late Function(GlobalKey) runAddToCartAnimation;
 
   final searchController = TextEditingController();
+  final cartItemsController = Get.find<CartItemsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +238,7 @@ class _HomeTabState extends State<HomeTab> {
 
   void itemSelectedCartAnimations(GlobalKey gkImage) async {
     await runAddToCartAnimation(gkImage);
-    await VariablesUtils.globalKeyCartItems.currentState!
-        .runCartAnimation((++VariablesUtils.cartQuantityItems).toString());
+    await VariablesUtils.globalKeyCartItems.currentState!.runCartAnimation(
+        (cartItemsController.getCartQtdTotalItens()).toString());
   }
 }

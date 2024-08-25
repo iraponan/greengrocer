@@ -5,7 +5,7 @@ mixin VariablesUtils {
   static const Duration pageAnimationDuration = Duration(seconds: 1);
   static final GlobalKey<CartIconKey> globalKeyCartItems =
       GlobalKey<CartIconKey>();
-  static int cartQuantityItems = 0;
+  //static int cartQuantityItems = 0;
   static const double heightButton = 50;
   static IconData tileIconDefault = Icons.add_shopping_cart_outlined;
   static IconData tileIconCheckDefault = Icons.check;
