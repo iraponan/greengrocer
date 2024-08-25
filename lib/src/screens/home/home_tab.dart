@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/home.dart';
+import 'package:greengrocer/src/controllers/navigation.dart';
+import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/screens/common_widgets/app_name.dart';
@@ -23,6 +25,7 @@ class _HomeTabState extends State<HomeTab> {
 
   final searchController = TextEditingController();
   final cartItemsController = Get.find<CartItemsController>();
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,20 +43,26 @@ class _HomeTabState extends State<HomeTab> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: GestureDetector(
-              onTap: () {},
-              child: AddToCartIcon(
-                  key: VariablesUtils.globalKeyCartItems,
-                  badgeOptions: BadgeOptions(
-                    active: true,
-                    backgroundColor: CustomColors.customContrastColor,
-                    foregroundColor: Colors.white,
-                  ),
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: CustomColors.customSwathColor,
-                  )),
-            ),
+            child: GetBuilder<CartItemsController>(builder: (controller) {
+              MethodsUtils.updateIconCart(cartItemsController);
+              return GestureDetector(
+                onTap: () {
+                  navigationController.navigatePageView(
+                      page: NavigationTabs.cart.index);
+                },
+                child: AddToCartIcon(
+                    key: VariablesUtils.globalKeyCartItems,
+                    badgeOptions: BadgeOptions(
+                      active: true,
+                      backgroundColor: CustomColors.customContrastColor,
+                      foregroundColor: Colors.white,
+                    ),
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: CustomColors.customSwathColor,
+                    )),
+              );
+            }),
           ),
         ],
       ),
@@ -238,7 +247,6 @@ class _HomeTabState extends State<HomeTab> {
 
   void itemSelectedCartAnimations(GlobalKey gkImage) async {
     await runAddToCartAnimation(gkImage);
-    await VariablesUtils.globalKeyCartItems.currentState!.runCartAnimation(
-        (cartItemsController.getCartQtdTotalItens()).toString());
+    MethodsUtils.updateIconCart(cartItemsController);
   }
 }

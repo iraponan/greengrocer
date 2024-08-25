@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/config/page_routes.dart';
+import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/product.dart';
 
@@ -21,7 +22,10 @@ class ItemTile extends StatefulWidget {
 }
 
 class _ItemTileState extends State<ItemTile> {
+  final cartItemsController = Get.find<CartItemsController>();
+
   IconData tileIcon = VariablesUtils.tileIconDefault;
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey imageGk = GlobalKey();
@@ -101,6 +105,7 @@ class _ItemTileState extends State<ItemTile> {
               child: InkWell(
                 onTap: () {
                   widget.cartAnimationMethod(imageGk);
+                  cartItemsController.addItemToCart(product: widget.product);
                   switchIcon();
                 },
                 child: Ink(

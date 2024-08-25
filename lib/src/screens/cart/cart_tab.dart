@@ -55,6 +55,7 @@ class CartTab extends StatelessWidget {
                                     controller.changeItemQuantity(
                                         cartItem: cartItem);
                                   }
+                                  MethodsUtils.updateIconCart(controller);
                                 },
                               );
                             },
@@ -73,6 +74,7 @@ class CartTab extends StatelessWidget {
                                       'Todos os produtos foram removido(s) do carrinho.',
                                   isCartRemove: true,
                                 );
+                                MethodsUtils.updateIconCart(controller);
                               },
                               icon: const Icon(Icons.cleaning_services_rounded),
                               label: const Text('Limpar Carrinho'),

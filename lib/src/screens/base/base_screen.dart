@@ -3,8 +3,10 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
+import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/screens/base/components/custom_bottom_bar_item.dart';
 import 'package:greengrocer/src/screens/cart/cart_tab.dart';
 import 'package:greengrocer/src/screens/home/home_tab.dart';
@@ -20,6 +22,7 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   final navigationController = Get.find<NavigationController>();
+  final cartItemsController = Get.find<CartItemsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,9 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         controller: navigationController.pageController,
         physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (page) => setState(() {}),
+        onPageChanged: (page) => setState(() {
+          MethodsUtils.updateIconCart(cartItemsController);
+        }),
         children: const [
           HomeTab(),
           CartTab(),
