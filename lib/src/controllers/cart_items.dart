@@ -56,12 +56,9 @@ class CartItemsController extends GetxController {
     int productItemIndex = getProductItemIndex(product);
 
     if (productItemIndex >= 0) {
+      cartItems[productItemIndex].quantity += quantity;
       final cartItem = cartItems[productItemIndex];
-      cartItem.quantity += quantity;
-      final result = await changeItemQuantity(cartItem: cartItem);
-      if (result) {
-        cartItems[productItemIndex].quantity += quantity;
-      } else {}
+      await changeItemQuantity(cartItem: cartItem);
     } else {
       final CartItemsResult<CartItems> result =
           await cartItemsRepository.addProductItemToCart(
@@ -81,18 +78,29 @@ class CartItemsController extends GetxController {
     update();
   }
 
-  Future<bool> changeItemQuantity({required CartItems cartItem}) async {
+  Future<bool> changeItemQuantity(
+      {required CartItems cartItem, bool remove = false}) async {
+    if (remove) {
+      cartItem.quantity = 0;
+    }
+
     final result =
         await cartItemsRepository.changeItemQuantity(cartItem: cartItem);
     result.when(
       success: (success) {
+        if (cartItem.quantity == 0) {
+          cartItems.removeWhere((c) => c.id == cartItem.id);
+        }
+        update();
         return success;
       },
       error: (message) {
         MethodsUtils.showToast(message: message, isError: true);
+        update();
         return false;
       },
     );
+    update();
     return false;
   }
 }

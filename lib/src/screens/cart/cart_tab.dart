@@ -3,25 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
-import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/data/orders.dart' as orders_data;
-import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
 
-class CartTab extends StatefulWidget {
+class CartTab extends StatelessWidget {
   const CartTab({super.key});
-
-  @override
-  State<CartTab> createState() => _CartTabState();
-}
-
-class _CartTabState extends State<CartTab> {
-  final navigationController = Get.find<NavigationController>();
-  final cartItemsController = Get.find<CartItemsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,32 +38,45 @@ class _CartTabState extends State<CartTab> {
                         cartItem: controller.cartItems[index],
                         updateQuantity: (qtd) {
                           if (qtd == 0) {
-                            removeItemFromCart(controller.cartItems[index]);
+                            cartItem.quantity = 0;
+                            controller.changeItemQuantity(cartItem: cartItem);
+                            controller.cartItems.remove(cartItem);
+                            MethodsUtils.showToast(
+                              message:
+                                  'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
+                              isCartRemove: true,
+                            );
                           } else {
-                            setState(() => cartItem.quantity = qtd);
+                            cartItem.quantity = qtd;
+                            controller.changeItemQuantity(cartItem: cartItem);
                           }
                         },
                       );
                     },
                   );
                 }),
-                cartItemsController.cartItems.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: ElevatedButton.icon(
-                          onPressed: () => setState(() {
-                            VariablesUtils.cartQuantityItems = 0;
-                            VariablesUtils.globalKeyCartItems.currentState
-                                ?.runClearCartAnimation();
-                            cartItemsController.cartItems.clear();
-                            navigationController.navigatePageView(
-                                page: NavigationTabs.home.index);
-                          }),
-                          icon: const Icon(Icons.cleaning_services_rounded),
-                          label: const Text('Limpar Carrinho'),
-                        ),
-                      )
-                    : Container(),
+                GetBuilder<CartItemsController>(
+                    builder: (controller) => controller.cartItems.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                for (CartItems cartItem
+                                    in controller.cartItems) {
+                                  controller.changeItemQuantity(
+                                      cartItem: cartItem, remove: true);
+                                }
+                                MethodsUtils.showToast(
+                                  message:
+                                      'Todos os produtos foram removido(s) do carrinho.',
+                                  isCartRemove: true,
+                                );
+                              },
+                              icon: const Icon(Icons.cleaning_services_rounded),
+                              label: const Text('Limpar Carrinho'),
+                            ),
+                          )
+                        : Container())
               ],
             ),
           ),
@@ -116,7 +119,7 @@ class _CartTabState extends State<CartTab> {
                   height: VariablesUtils.heightButton,
                   child: ElevatedButton(
                     onPressed: () async {
-                      bool? result = await showOrderConfirmation();
+                      bool? result = await showOrderConfirmation(context);
                       if (result ?? false) {
                         showDialog(
                           context: context,
@@ -147,18 +150,7 @@ class _CartTabState extends State<CartTab> {
     );
   }
 
-  void removeItemFromCart(CartItems cartItem) {
-    setState(() {
-      cartItemsController.cartItems.remove(cartItem);
-      MethodsUtils.showToast(
-        message:
-            'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
-        isCartRemove: true,
-      );
-    });
-  }
-
-  Future<bool?> showOrderConfirmation() => showDialog<bool>(
+  Future<bool?> showOrderConfirmation(BuildContext context) => showDialog<bool>(
         context: context,
         builder: (c) => AlertDialog(
           title: const Text('Confirmação'),
