@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/helpers/enums/payment_status.dart';
 import 'package:greengrocer/src/models/order.dart';
 import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
-import 'package:greengrocer/src/screens/orders/components/order_item.dart';
 import 'package:greengrocer/src/screens/orders/components/order_status.dart';
 
 class OrderTile extends StatelessWidget {
@@ -40,15 +39,15 @@ class OrderTile extends StatelessWidget {
             IntrinsicHeight(
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     flex: 3,
                     child: SizedBox(
                       height: 150,
-                      child: ListView(
+                      /*child: ListView(
                           children: order.items
                               .map((orderItem) =>
                                   OrderItem(orderItem: orderItem))
-                              .toList()),
+                              .toList()),*/
                     ),
                   ),
                   VerticalDivider(

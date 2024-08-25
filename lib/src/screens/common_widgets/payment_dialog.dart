@@ -1,5 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/models/order.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -30,7 +32,7 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
                 QrImageView(
-                  data: '1234567890',
+                  data: order.copyAndPastPIX,
                   version: QrVersions.auto,
                   size: 200.0,
                 ),
@@ -49,7 +51,11 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    FlutterClipboard.copy(order.copyAndPastPIX);
+                    MethodsUtils.showToast(
+                        message: 'Chave Copiada com sucesso!');
+                  },
                   icon: const Icon(
                     Icons.copy,
                     size: 15,

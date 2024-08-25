@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
-import 'package:greengrocer/src/data/orders.dart' as orders_data;
 import 'package:greengrocer/src/helpers/utils/methods.dart';
 import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
-import 'package:greengrocer/src/screens/common_widgets/payment_dialog.dart';
 
 class CartTab extends StatelessWidget {
   const CartTab({super.key});
@@ -48,7 +46,7 @@ class CartTab extends StatelessWidget {
                                     MethodsUtils.showToast(
                                       message:
                                           'Produto: ${cartItem.product.productName} removido(a) do carrinho.',
-                                      isCartRemove: true,
+                                      isInfo: true,
                                     );
                                   } else {
                                     cartItem.quantity = qtd;
@@ -72,7 +70,7 @@ class CartTab extends StatelessWidget {
                                 MethodsUtils.showToast(
                                   message:
                                       'Todos os produtos foram removido(s) do carrinho.',
-                                  isCartRemove: true,
+                                  isInfo: true,
                                 );
                                 MethodsUtils.updateIconCart(controller);
                               },
@@ -180,33 +178,35 @@ class CartTab extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: VariablesUtils.heightButton,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      bool? result = await showOrderConfirmation(context);
-                      if (result ?? false) {
-                        showDialog(
-                          context: context,
-                          builder: (c) => PaymentDialog(
-                            order: orders_data.orders.first,
-                          ),
-                        );
-                      } else {
-                        MethodsUtils.showToast(
-                          message: 'Pedido Não Confirmado',
-                          isError: true,
-                        );
-                      }
-                    },
-                    child: const Text(
-                      'Concluir Pedido',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
+                GetBuilder<CartItemsController>(builder: (controller) {
+                  return SizedBox(
+                    height: VariablesUtils.heightButton,
+                    child: ElevatedButton(
+                      onPressed: !controller.isCheckoutLoading &&
+                              controller.cartItems.isEmpty
+                          ? null
+                          : () async {
+                              bool? result =
+                                  await showOrderConfirmation(context);
+                              if (result ?? false) {
+                                controller.checkoutCart();
+                              } else {
+                                MethodsUtils.showToast(
+                                    message: 'Pedido não confirmado',
+                                    isInfo: true);
+                              }
+                            },
+                      child: controller.isCheckoutLoading
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                              'Concluir Pedido',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           )
