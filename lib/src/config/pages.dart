@@ -30,10 +30,10 @@ mixin AppPages {
       bindings: [
         NavigationBinding(),
         HomeBinding(),
-        CartItemsBinding(),
         OrdersBinding(),
+        CartItemsBinding(),
       ],
     ),
-    GetPage(name: PageRoutes.productRoute, page: () => ProductScreen())
+    GetPage(name: PageRoutes.productRoute, page: () => const ProductScreen())
   ];
 }

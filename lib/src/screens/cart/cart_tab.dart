@@ -87,7 +87,7 @@ class CartTab extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.remove_shopping_cart,
-                          size: 40,
+                          size: VariablesUtils.heightIconPageEmpty,
                           color: CustomColors.customSwathColor,
                         ),
                         Text(

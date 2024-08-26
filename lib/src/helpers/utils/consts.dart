@@ -7,6 +7,7 @@ mixin VariablesUtils {
   static final GlobalKey<CartIconKey> globalKeyCartItems =
       GlobalKey<CartIconKey>();
   static const double heightButton = 50;
+  static const double heightIconPageEmpty = 75;
   static const IconData tileIconDefault = Icons.add_shopping_cart_outlined;
   static const IconData tileIconCheckDefault = Icons.check;
 }

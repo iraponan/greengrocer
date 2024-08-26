@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/controllers/auth.dart';
+import 'package:greengrocer/src/controllers/orders.dart';
 import 'package:greengrocer/src/helpers/enums/payment_status.dart';
 import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
@@ -20,6 +21,7 @@ class CartItemsController extends GetxController {
   final orderRepository = OrdersRepository();
   final ordersItemsRepository = OrdersItemsRepository();
   final authController = Get.find<AuthController>();
+  final ordersController = Get.find<OrdersController>();
 
   List<CartItems> cartItems = [];
 
@@ -144,9 +146,11 @@ class CartItemsController extends GetxController {
       success: (order) async {
         order.copyAndPastPIX = MethodsUtils.getPIXQRCode(order);
         orderRepository.updatePIXQRCode(order);
+
         for (CartItems cartItem in cartItems) {
           final result = await ordersItemsRepository.addNewOrdersItems(
               order: order, cartItems: cartItem);
+
           result.when(
             success: (orderItem) async {
               resultOrdersItems.add(orderItem);
@@ -168,6 +172,7 @@ class CartItemsController extends GetxController {
             order: order,
           ),
         );
+        ordersController.getAllOrders();
       },
       error: (message) {
         MethodsUtils.showToast(
