@@ -2,9 +2,9 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/controllers/auth.dart';
-import 'package:greengrocer/src/data/user.dart' as user_data;
 import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
+import 'package:greengrocer/src/services/validators.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -38,7 +38,7 @@ class _ProfileTabState extends State<ProfileTab> {
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
         children: [
           CustomTextField(
-            initialValue: user_data.user.email,
+            initialValue: authController.user.email,
             isReadOnly: true,
             prefixIcon: Icons.email,
             labelText: 'E-mail',
@@ -46,14 +46,14 @@ class _ProfileTabState extends State<ProfileTab> {
             textCapitalization: TextCapitalization.none,
           ),
           CustomTextField(
-            initialValue: user_data.user.name,
+            initialValue: authController.user.name,
             isReadOnly: true,
             prefixIcon: Icons.person,
             labelText: 'Nome',
             textCapitalization: TextCapitalization.words,
           ),
           CustomTextField(
-            initialValue: user_data.user.phone,
+            initialValue: authController.user.phone,
             isReadOnly: true,
             prefixIcon: Icons.phone,
             labelText: 'Celular',
@@ -61,7 +61,7 @@ class _ProfileTabState extends State<ProfileTab> {
             textInputFormatter: TelefoneInputFormatter(),
           ),
           CustomTextField(
-            initialValue: user_data.user.cpfCnpj,
+            initialValue: authController.user.cpfCnpj,
             isSecret: true,
             isReadOnly: true,
             prefixIcon: Icons.person_pin,
@@ -81,13 +81,20 @@ class _ProfileTabState extends State<ProfileTab> {
     );
   }
 
-  Future<bool?> updatePassword() => showDialog(
-        context: context,
-        builder: (c) => Dialog(
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+  Future<bool?> updatePassword() {
+    final newPasswordController = TextEditingController();
+    final currentPasswordController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+
+    return showDialog(
+      context: context,
+      builder: (c) => Dialog(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,44 +110,74 @@ class _ProfileTabState extends State<ProfileTab> {
                         ),
                       ),
                     ),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: currentPasswordController,
                       labelText: 'Senha Atual',
                       prefixIcon: Icons.lock,
                       isSecret: true,
+                      validator: Validators.passwordValidator,
                     ),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: newPasswordController,
                       labelText: 'Nova Senha',
                       prefixIcon: Icons.lock_outlined,
                       isSecret: true,
+                      validator: Validators.passwordValidator,
                     ),
-                    const CustomTextField(
+                    CustomTextField(
                       labelText: 'Confirmar Nova Senha',
                       prefixIcon: Icons.lock_outline,
                       isSecret: true,
+                      validator: (password) {
+                        final validator =
+                            Validators.passwordValidator(password);
+                        if (validator != null) {
+                          return validator;
+                        }
+                        if (password != newPasswordController.text) {
+                          return 'As senhas não são equivalentes';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: VariablesUtils.heightButton,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Atualizar'),
-                      ),
+                      child: Obx(() => ElevatedButton(
+                            onPressed: authController.isLoading.value
+                                ? null
+                                : () {
+                                    if (formKey.currentState!.validate()) {
+                                      FocusScope.of(context).unfocus();
+                                      authController.changePassword(
+                                        currentPassword:
+                                            currentPasswordController.text,
+                                        newPassword: newPasswordController.text,
+                                      );
+                                    }
+                                  },
+                            child: authController.isLoading.value
+                                ? const CircularProgressIndicator()
+                                : const Text('Atualizar'),
+                          )),
                     ),
                   ],
                 ),
               ),
-              Positioned(
-                top: 5,
-                right: 5,
-                child: IconButton(
-                  onPressed: () => Navigator.of(c).pop(),
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
+            ),
+            Positioned(
+              top: 5,
+              right: 5,
+              child: IconButton(
+                onPressed: () => Navigator.of(c).pop(),
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.red,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

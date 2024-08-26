@@ -20,7 +20,7 @@ class User {
   String? cpfCnpj;
   String? password;
 
-  factory User.fromMap(ParseUser parseUser) {
+  factory User.fromParseUser(ParseUser parseUser) {
     return User(
       id: parseUser.objectId ?? '',
       token: parseUser.sessionToken ?? '',

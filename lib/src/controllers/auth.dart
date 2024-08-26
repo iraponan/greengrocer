@@ -80,7 +80,33 @@ class AuthController extends GetxController {
     FocusManager.instance.primaryFocus?.unfocus();
     result.when(
       success: (message) {
-        MethodsUtils.showToast(message: message);
+        MethodsUtils.showToast(message: message, isInfo: true);
+      },
+      error: (message) {
+        MethodsUtils.showToast(message: message, isError: true);
+      },
+    );
+  }
+
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    isLoading.value = true;
+
+    final result = await authRepository.changePassword(
+      email: user.email ?? '',
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
+
+    isLoading.value = false;
+
+    result.when(
+      success: (value) {
+        MethodsUtils.showToast(
+            message: 'A senha foi atualizada com sucesso!', isInfo: true);
+        signOut();
       },
       error: (message) {
         MethodsUtils.showToast(message: message, isError: true);
