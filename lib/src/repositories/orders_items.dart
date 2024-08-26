@@ -15,10 +15,14 @@ class OrdersItemsRepository {
     final queryBuilder =
         QueryBuilder(ParseObject(TablesNameKeys.keyOrdersItemsTable))
           ..includeObject([
-            TablesNameKeys.keyOrdersTable,
-            TablesNameKeys.keyProductsTable,
+            OrdersItemsColumnKeys.order,
+            OrdersItemsColumnKeys.product,
           ])
-          ..whereEqualTo(OrdersItemsColumnKeys.order, order.id)
+          ..whereEqualTo(
+              OrdersItemsColumnKeys.order,
+              (ParseObject(TablesNameKeys.keyOrdersTable)
+                    ..set(OrdersColumnKeys.id, order.id))
+                  .toPointer())
           ..orderByDescending(OrdersItemsColumnKeys.createdAt);
 
     final response = await queryBuilder.query();

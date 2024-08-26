@@ -37,8 +37,8 @@ class PaymentDialog extends StatelessWidget {
                   size: 200.0,
                 ),
                 Text(
-                  'Vencimento: ${UtilData.obterDataDDMMAAAA(order.overdueDateTime)}'
-                  ' ${UtilData.obterHoraHHMMSS(order.overdueDateTime)}',
+                  'Vencimento: ${UtilData.obterDataDDMMAAAA(order.overdueDateTime.toLocal())}'
+                  ' ${UtilData.obterHoraHHMMSS(order.overdueDateTime.toLocal())}',
                   style: const TextStyle(
                     fontSize: 12,
                   ),

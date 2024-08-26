@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 
 class NavigationController extends GetxController {
   late PageController _pageController;

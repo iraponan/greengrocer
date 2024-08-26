@@ -5,8 +5,8 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
 import 'package:greengrocer/src/controllers/navigation.dart';
 import 'package:greengrocer/src/helpers/enums/navigation_tabs.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/product.dart';
 import 'package:greengrocer/src/screens/common_widgets/quantity_widget.dart';
 

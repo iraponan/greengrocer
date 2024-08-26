@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/models/order.dart';
 import 'package:pix_flutter/pix_flutter.dart';
 

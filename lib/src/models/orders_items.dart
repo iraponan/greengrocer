@@ -24,20 +24,20 @@ class OrdersItems {
         order = Order.fromParse(object.get(OrdersItemsColumnKeys.order), user),
         product = Product.fromParse(object.get(OrdersItemsColumnKeys.product)),
         quantity = int.tryParse(
-                object.get<int>(OrdersItemsColumnKeys.quantity).toString()) ??
+                object.get<num>(OrdersItemsColumnKeys.quantity).toString()) ??
             0,
         price = double.tryParse(
-                object.get<double>(OrdersItemsColumnKeys.price).toString()) ??
+                object.get<num>(OrdersItemsColumnKeys.price).toString()) ??
             0;
 
   OrdersItems.fromParseFromCart(ParseObject object, User user, this.product)
       : id = object.objectId ?? '',
         order = Order.fromParse(object.get(OrdersItemsColumnKeys.order), user),
         quantity = int.tryParse(
-                object.get<int>(OrdersItemsColumnKeys.quantity).toString()) ??
+                object.get<num>(OrdersItemsColumnKeys.quantity).toString()) ??
             0,
         price = double.tryParse(
-                object.get<double>(OrdersItemsColumnKeys.price).toString()) ??
+                object.get<num>(OrdersItemsColumnKeys.price).toString()) ??
             0;
 
   @override

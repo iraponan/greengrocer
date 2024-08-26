@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/helpers/utils/methods.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
 import 'package:greengrocer/src/models/cart_items.dart';
 import 'package:greengrocer/src/screens/cart/components/cart_tile.dart';
 

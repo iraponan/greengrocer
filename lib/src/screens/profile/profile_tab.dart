@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/controllers/auth.dart';
 import 'package:greengrocer/src/data/user.dart' as user_data;
-import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/screens/common_widgets/custom_text_field.dart';
 
 class ProfileTab extends StatefulWidget {

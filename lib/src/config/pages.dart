@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/bindings/cart_items.dart';
 import 'package:greengrocer/src/bindings/home.dart';
 import 'package:greengrocer/src/bindings/navigation.dart';
+import 'package:greengrocer/src/bindings/orders.dart';
 import 'package:greengrocer/src/config/page_routes.dart';
 import 'package:greengrocer/src/screens/auth/sing_in.dart';
 import 'package:greengrocer/src/screens/auth/sing_up.dart';
@@ -30,6 +31,7 @@ mixin AppPages {
         NavigationBinding(),
         HomeBinding(),
         CartItemsBinding(),
+        OrdersBinding(),
       ],
     ),
     GetPage(name: PageRoutes.productRoute, page: () => ProductScreen())

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/config/page_routes.dart';
 import 'package:greengrocer/src/controllers/cart_items.dart';
-import 'package:greengrocer/src/helpers/utils/variables.dart';
+import 'package:greengrocer/src/helpers/utils/consts.dart';
 import 'package:greengrocer/src/models/product.dart';
 
 class ItemTile extends StatefulWidget {

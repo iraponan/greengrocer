@@ -38,6 +38,9 @@ class Order {
                 object.get<double>(OrdersColumnKeys.totalOrder).toString()) ??
             0;
 
+  bool get isOverDue =>
+      overdueDateTime.toLocal().isBefore(DateTime.now().toLocal());
+
   @override
   String toString() {
     return 'Order{id: $id, createdDateTime: $createdDateTime, overdueDateTime: $overdueDateTime, status: $status, copyAndPastPIX: $copyAndPastPIX, total: $total}';
