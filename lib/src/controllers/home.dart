@@ -42,6 +42,7 @@ class HomeController extends GetxController {
 
   Future<void> getAllCategories() async {
     setLoading(true);
+    allCategories = [Category(id: 'Todos', name: 'Todos')];
     HomeResult<Category> homeResult = await homeRepository.getAllCategories();
     setLoading(false);
 
